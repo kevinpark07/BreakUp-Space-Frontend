@@ -13,7 +13,6 @@ const BreakupQuizContainer = (props) => {
     }
 
     const handleClick = (event) => {
-        console.dir(event.target)
         setStartQuiz(false);
         let selectedTopic = event.target.innerText.toLowerCase();
         let topicQuestions = props.topics.find(topic => topic.theme === selectedTopic);

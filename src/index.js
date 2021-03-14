@@ -50,6 +50,8 @@ const rootReducer = (currentState = {
 } else if (action.type === "UPDATED_USER") {
   let newUsersArray = currentState.users.filter(user => user.id !== action.payload.id);
   return {...currentState, user: action.payload, users: [...newUsersArray, action.payload]}
+} else if (action.type === "NEW_FAVORITE") {
+  return {...currentState, favorites: [...currentState.favorites, action.payload]}
 } else {
     return currentState;
   }

@@ -149,3 +149,18 @@ export const deleteComment = (commentId) => {
         .then(deletedComment => dispatch({type:"DELETE_COMMENT", payload: deletedComment}))
     }
 }
+
+export const saveFavoriteMessage = (messageObj) => {
+    return function(dispatch) {
+        fetch(FAVORITES_URL, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'accepts': 'application/json'
+            }, 
+            body: JSON.stringify(messageObj)
+        })
+        .then(resp => resp.json())
+        .then(savedFavorite => dispatch({type:"NEW_FAVORITE", payload: savedFavorite}))
+    }
+}

@@ -19,7 +19,7 @@ const Quiz = (props) => {
             setMessageSubject(answer.innerText.toLowerCase());
             setCount(count+1)
             renderQuestions()
-        } else if (messageSubject === 'made me feel uncomfortable' && count === 1) {
+        } else if (messageSubject === "they made me feel uncomfortable" && count === 1) {
             setMessageTone(answer.innerText.toLowerCase())
             setCount(props.questions.length)
             renderQuestions()  
@@ -56,19 +56,18 @@ const Quiz = (props) => {
 
         let foundMessage;
 
-        if (props.topic === 'no connection' && props.messageSubject === 'made me feel uncomfortable') {
+        if (props.topic === 'no connection' && messageSubject === 'they made me feel uncomfortable') {
             foundMessage = props.messages.find(message =>  message.tone === messageTone && message.subject === messageSubject);
         } else if(!messageSubject) {
             foundMessage = props.messages.find(message => message.topic.theme === props.topic && message.tone === selectedTone)
         } else {
             foundMessage = props.messages.find(message => message.topic.theme === props.topic && message.tone === selectedTone && message.subject === messageSubject)
         }
-
         text = foundMessage;
     }
 
     const renderQuestions = () => {
-        if (messageSubject === 'just not feeling it' && count === 1) {
+        if (messageSubject === "you're just not feeling it" && count === 1) {
             setCount(count + 1)
             let selectedQuestion = props.questions[count];
             return  <QuestionCard handleClick={nextQuestion} key={selectedQuestion.id} question={selectedQuestion.question} answers={selectedQuestion.answers}/>
@@ -86,7 +85,9 @@ const Quiz = (props) => {
     }
 
     return (
-        renderQuestions()
+        <>
+        {renderQuestions()}
+        </>
     )
 }
 

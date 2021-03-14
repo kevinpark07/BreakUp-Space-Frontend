@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import {saveFavoriteMessage} from '../Redux/actions';
 
 function getModalStyle() {
     const top = 50;
@@ -32,6 +33,9 @@ const ResultCard = (props) => {
 
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
+    const [save, setSave] = useState(false);
+    const [editTextMessage, setEditTextMessage] = useState(false);
+    const [message, setMessage] = useState(props.result.message);
 
     const handleOpen = () => {
         setOpen(true);
@@ -39,26 +43,49 @@ const ResultCard = (props) => {
     
       const handleClose = () => {
         setOpen(false);
+        setSave(false);
       };
+
+      const handleSave = () => {
+        let messageObj = {
+          user_id: props.user.id,
+          breakup_message_id: props.result.id,
+        };
+
+        props.saveFavoriteMessage(messageObj);
+        setSave(true);
+        setOpen(true);
+      }
+
+      const handleClick = () => {
+        setEditTextMessage(true);
+      }
+
+      const handleChange = (e) => {
+        console.log(e.target.innerText);
+        setMessage(e.target.innerText);
+      }
 
       const renderResuleHeader = () => {
           if (!props.result.subject) {
-            return <Header>It seems you want a {props.result.tone} vibe...</Header>
+            return <Header>The issue is they are more a friend and it seems you want to send a {props.result.tone} text...</Header>
           } else if (!props.result.tone) {
-            return <Header>You {props.result.subject}...</Header>
-          } else {
-              return <Header>You {props.result.subject} and it seems you want a {props.result.tone} vibe...</Header>
+            return <Header>The issue is {props.result.subject}...</Header>
+          } else if(props.result.subject === 'they made me feel uncomfortable') {
+            return <Header>The issue is they made you feel uncomfortable due to {props.result.tone}...</Header>
+          }else {
+              return <Header>The issue is {props.result.subject} and it seems you want a {props.result.tone} vibe...</Header>
           }
       }
     
     return (
         <>
         {renderResuleHeader()}
-        <Message>{props.result.message}</Message>
+        <Message onClick={handleClick} contentEditable={editTextMessage} onKeyPress={handleChange}>{props.result.message}</Message>
         <ButtonContainer>
-            <Button onClick={props.resetQuiz}>Try Again</Button> 
-            <CopyButton text={props.result}
-                onCopy={handleOpen}>
+            <Button onClick={props.resetQuiz}>Try Again</Button>
+            {props.user ? <Button onClick={handleSave}>Save Text</Button> : null}  
+            <CopyButton text={message} onCopy={handleOpen}>
                 <button>Copy Text!</button>
             </CopyButton>
         </ButtonContainer>
@@ -68,7 +95,7 @@ const ResultCard = (props) => {
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
         >
-            <h5 style={{color: 'white'}}>Copied!</h5>
+            <h5 style={{color: 'white'}}>{save ? 'Saved!' : 'Copied!'}</h5>
         </Modal>       
         </>
     )
@@ -76,11 +103,18 @@ const ResultCard = (props) => {
 
 const msp = state => {
     return {
-        messages: state.messages
+        messages: state.messages,
+        user: state.user
     }
 }
 
-export default connect(msp, null)(ResultCard);
+const mdp = dispatch => {
+  return {
+    saveFavoriteMessage: (messageObj) => dispatch(saveFavoriteMessage(messageObj))
+  }
+}
+
+export default connect(msp, mdp)(ResultCard);
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -90,7 +124,7 @@ const ButtonContainer = styled.div`
 const Button = styled.button`
     display: inline-block;
     white-space: nowrap;
-    width: 150px;
+    width: 120px;
     border-radius: 12px;
     border: #bfa0e2;
     font-weight: 600;
@@ -99,7 +133,7 @@ const Button = styled.button`
     font-size: 14px;
     margin-top: 20px;
     padding: 15px 36px;
-    text-align: center;
+    text-align: center; 
     &:hover {
         cursor: pointer;
     }
@@ -108,7 +142,7 @@ const Button = styled.button`
 const CopyButton = styled(CopyToClipboard)`
     display: inline-block;
     white-space: nowrap;
-    width: 150px;
+    width: 120px;
     border-radius: 12px;
     border: #bfa0e2;
     font-weight: 600;
@@ -192,5 +226,10 @@ margin-bottom: 20px;
     height: 20px;
     background: #eaeaea;
     border-bottom-left-radius: 10px;
+  }
+  ${props => props.contentEditable ?
+    `color: #78FF7D` :
+    `&:hover {
+      cursor: pointer;`
   }
 `

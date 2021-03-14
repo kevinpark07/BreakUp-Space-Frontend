@@ -19,7 +19,6 @@ import styled from 'styled-components';
         const handleSubmit = (event) => {
             event.preventDefault();
             let foundUser = props.users.find(user => user.username === username && user.password === password)
-            //let foundUser = props.users[1];
             if (foundUser) {
                 props.setUser(foundUser);
             } else {
