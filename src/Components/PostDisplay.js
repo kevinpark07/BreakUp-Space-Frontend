@@ -51,7 +51,7 @@ const PostDisplay = props => {
     return (
         <Container>
             <Header>
-                <h1>Post Display</h1>
+                <h1>Community Board</h1>
                 {props.user ? <Button onClick={handleOpen}>Write Post</Button> : <h4>Must be logged in to Post or Comment. <br></br><a href="/login">Log-in</a>?</h4>}
             </Header>
             <PostContainer>

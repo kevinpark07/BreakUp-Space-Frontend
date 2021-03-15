@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Comment from './Comment';
-import {connect} from 'react-redux';
-import {saveComment} from '../Redux/actions';
+import { connect } from 'react-redux';
+import { saveComment } from '../Redux/actions';
+import styled from 'styled-components';
 
-function PostPage({post, user, saveComment, comments}) {
+function PostPage({ post, user, saveComment, comments }) {
 
     const [comment, setComment] = useState("")
-    
+
     const renderComments = () => {
         let postComments = comments.filter(comment => comment.post.id === post.id)
-        return postComments.map(comment => <Comment key={comment.id} comment={comment}/>)
+        return postComments.map(comment => <Comment key={comment.id} comment={comment} />)
     }
 
     const submitHandle = event => {
@@ -33,28 +34,31 @@ function PostPage({post, user, saveComment, comments}) {
         }
     }
 
-    return(
-        <div>
-            <h1>hello I am postpage!</h1>
-            <h1>Title: {post.title}</h1>
-            <h3>Date: {post.date}</h3>
-            <h3>Time: {post.time}</h3>
-            <h3>Username: {post.user.username}</h3>
-            <p>Post: {post.content}</p>
+    return (
+        <Container>
+            <PostContainer>
+                <h1>Title: {post.title}</h1>
+                <h3>Date: {post.date}</h3>
+                <h3>Time: {post.time}</h3>
+                <h3>Username: {post.user.username}</h3>
+                <p>Post: {post.content}</p>
+            </PostContainer>
+
             <form onSubmit={submitHandle}>
-                <input placeholder='Enter Comment here' name='comment' onChange={changeHandle}/>
+                <input placeholder='Enter Comment here' name='comment' onChange={changeHandle} />
                 <button>Submit</button>
             </form>
             {renderComments()}
-        </div>
+        </Container>
     )
 }
 
 const msp = state => {
     return {
         user: state.user
-,
-    comments: state.comments    }
+        ,
+        comments: state.comments
+    }
 }
 
 const mdp = dispatch => {
@@ -64,3 +68,21 @@ const mdp = dispatch => {
 }
 
 export default connect(msp, mdp)(PostPage);
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+`
+
+const PostContainer= styled.div`
+    float: right;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 80%;
+    height: auto;
+    justify-content: space-between;
+    padding-left: 2%;
+`
