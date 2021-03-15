@@ -34,7 +34,6 @@ const ResultCard = (props) => {
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
     const [save, setSave] = useState(false);
-    const [editTextMessage, setEditTextMessage] = useState(false);
     const [message, setMessage] = useState(props.result.message);
 
     const handleOpen = () => {
@@ -57,13 +56,9 @@ const ResultCard = (props) => {
         setOpen(true);
       }
 
-      const handleClick = () => {
-        setEditTextMessage(true);
-      }
 
       const handleChange = (e) => {
-        console.log(e.target.innerText);
-        setMessage(e.target.innerText);
+        setMessage(e.target.value);
       }
 
       const renderResuleHeader = () => {
@@ -79,9 +74,11 @@ const ResultCard = (props) => {
       }
     
     return (
-        <>
+        <div>
         {renderResuleHeader()}
-        <Message onClick={handleClick} contentEditable={editTextMessage} onKeyPress={handleChange}>{props.result.message}</Message>
+        <Message>
+          <TextArea onChange={handleChange} value={message}/>
+        </Message>
         <ButtonContainer>
             <Button onClick={props.resetQuiz}>Try Again</Button>
             {props.user ? <Button onClick={handleSave}>Save Text</Button> : null}  
@@ -97,7 +94,7 @@ const ResultCard = (props) => {
         >
             <h5 style={{color: 'white'}}>{save ? 'Saved!' : 'Copied!'}</h5>
         </Modal>       
-        </>
+        </div>
     )
 }
 
@@ -227,9 +224,15 @@ margin-bottom: 20px;
     background: #eaeaea;
     border-bottom-left-radius: 10px;
   }
-  ${props => props.contentEditable ?
-    `color: #78FF7D` :
-    `&:hover {
-      cursor: pointer;`
+    &:hover {
+      cursor: pointer;
   }
+`
+
+const TextArea = styled.textarea`
+  border: none;
+  color: white;
+  background: #bfa0e2;
+  resize: none;
+  height: 150px;
 `
