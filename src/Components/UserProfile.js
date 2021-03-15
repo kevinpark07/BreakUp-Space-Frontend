@@ -1,43 +1,44 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import FavoritesContainer from '../Containers/FavoritesContainer';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import {editUser} from '../Redux/actions';
+import { editUser, logoutUser } from '../Redux/actions';
+import { Redirect } from 'react-router-dom';
 
 const status = [
     {
-      value: 'single',
-      label: 'single',
+        value: 'single',
+        label: 'single',
     },
     {
-      value: 'taken',
-      label: 'taken',
+        value: 'taken',
+        label: 'taken',
     },
     {
-      value: 'complicated',
-      label: 'complicated',
+        value: 'complicated',
+        label: 'complicated',
     },
     {
-      value: 'serious',
-      label: 'serious',
+        value: 'serious',
+        label: 'serious',
     },
-  ];
-  
-  const useStyles = makeStyles((theme) => ({
+];
+
+const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
+        display: 'flex',
+        flexWrap: 'wrap',
     },
     textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: '25ch',
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: '25ch',
     },
-  }));
+}));
 
 const UserProfile = (props) => {
     const classes = useStyles();
@@ -62,7 +63,9 @@ const UserProfile = (props) => {
             setPasswordConfirmation(e.target.value)
         } else if (e.target.name === 'username') {
             setUsername(e.target.value)
-        }     
+        } else if (e.target.name === 'logout') {
+            props.logoutUser();
+        }
     }
 
     const handleOpen = () => {
@@ -89,118 +92,122 @@ const UserProfile = (props) => {
             props.editUser(props.user.id, userData);
             handleClose();
         }
-        
+
     }
 
     return (
-        <Container>
-            <DataContainer>
-                <ProfileImage alt="profile_image" src={props.user.profile_image} />
-                <ProfileContainer> 
-                    <UsernameTitle>{props.user.username}</UsernameTitle>
-                    <ProfileButton onClick={handleOpen}>Edit Profile</ProfileButton>
-                </ProfileContainer>
-            </DataContainer>
-            <ProfileModal
-                open={open}
-                onClose={handleClose}
-            >
-                <div className={classes.root} noValidate autoComplete="off">
-                <form onSubmit={handleSubmit}>
-                <TextField
-                    id="outlined-full-width"
-                    label="Name"
-                    style={{ margin: 8 }}
-                    //placeholder={props.user.name}
-                    //value={relationship}
-                    name = "name"
-                    onChange={handleChange}
-                    value={name}
-                    fullWidth
-                    margin="normal"
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                    variant="outlined"
-                />
-
-                <TextField
-                    id="outlined-full-width"
-                    label="Email"
-                    style={{ margin: 8 }}
-                    placeholder={props.user.email}
-                    fullWidth
-                    name = "email"
-                    onChange={handleChange}
-                    value={email}
-                    margin="normal"
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                    variant="outlined"
-                />
-                <TextField
-                    label="Password"
-                    id="outlined-margin-normal"
-                    defaultValue='Enter New Password'
-                    className={classes.textField}
-                    name = "password"
-                    onChange={handleChange}
-                    value={password}
-                    helperText="no caps please"
-                    margin="normal"
-                    variant="outlined"
-                />
-                <TextField
-                    label="Password Confirmation"
-                    name = "password confirmation"
-                    onChange={handleChange}
-                    value={passwordConfirmation}
-                    id="outlined-margin-normal"
-                    defaultValue='Confirm Password'
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                />
-                <TextField
-                    label="Username"
-                    name = "username"
-                    onChange={handleChange}
-                    value={username}
-                    id="outlined-margin-normal"
-                    defaultValue={props.user.username}
-                    className={classes.textField}
-                    helperText="Keep it short and sweet 🍭"
-                    margin="normal"
-                    variant="outlined"
-                />
-
-                    <TextField
-                    id="outlined-margin-normal"
-                    className={classes.textField}
-                    select
-                    label="Relationship Status"
-                    name='relationship'
-                    value={relationship}
-                    onChange={handleChange}
-                    variant="outlined"
-                    margin="normal"
+        props.user ?
+            <Container>
+                <DataContainer>
+                    <ProfileImage alt="profile_image" src={props.user.profile_image} />
+                    <ProfileContainer>
+                        <UsernameTitle>{props.user.username}</UsernameTitle>
+                        <button onClick={handleChange} name='logout'>Log Out</button>
+                        <ProfileButton onClick={handleOpen}>Edit Profile</ProfileButton>
+                    </ProfileContainer>
+                </DataContainer>
+                <ProfileModal
+                    open={open}
+                    onClose={handleClose}
                 >
-                    {status.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                    ))}
-                </TextField>
-                <button>Submit</button>
-                </form>
-                </div>
-            </ProfileModal>
+                    <div className={classes.root} noValidate autoComplete="off">
+                        <form onSubmit={handleSubmit}>
+                            <TextField
+                                id="outlined-full-width"
+                                label="Name"
+                                style={{ margin: 8 }}
+                                //placeholder={props.user.name}
+                                //value={relationship}
+                                name="name"
+                                onChange={handleChange}
+                                value={name}
+                                fullWidth
+                                margin="normal"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant="outlined"
+                            />
 
-            <TextContainer>
-                <FavoritesContainer/>
-            </TextContainer>
-        </Container>
+                            <TextField
+                                id="outlined-full-width"
+                                label="Email"
+                                style={{ margin: 8 }}
+                                placeholder={props.user.email}
+                                fullWidth
+                                name="email"
+                                onChange={handleChange}
+                                value={email}
+                                margin="normal"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant="outlined"
+                            />
+                            <TextField
+                                label="Password"
+                                id="outlined-margin-normal"
+                                defaultValue='Enter New Password'
+                                className={classes.textField}
+                                name="password"
+                                onChange={handleChange}
+                                value={password}
+                                helperText="no caps please"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                            <TextField
+                                label="Password Confirmation"
+                                name="password confirmation"
+                                onChange={handleChange}
+                                value={passwordConfirmation}
+                                id="outlined-margin-normal"
+                                defaultValue='Confirm Password'
+                                className={classes.textField}
+                                margin="normal"
+                                variant="outlined"
+                            />
+                            <TextField
+                                label="Username"
+                                name="username"
+                                onChange={handleChange}
+                                value={username}
+                                id="outlined-margin-normal"
+                                defaultValue={props.user.username}
+                                className={classes.textField}
+                                helperText="Keep it short and sweet 🍭"
+                                margin="normal"
+                                variant="outlined"
+                            />
+
+                            <TextField
+                                id="outlined-margin-normal"
+                                className={classes.textField}
+                                select
+                                label="Relationship Status"
+                                name='relationship'
+                                value={relationship}
+                                onChange={handleChange}
+                                variant="outlined"
+                                margin="normal"
+                            >
+                                {status.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <button>Submit</button>
+                        </form>
+                    </div>
+                </ProfileModal>
+
+                <TextContainer>
+                    <FavoritesContainer />
+                </TextContainer>
+            </Container>
+            :
+            <Redirect to='/login' />
     )
 }
 
@@ -212,7 +219,8 @@ const msp = state => {
 
 const mdp = dispatch => {
     return {
-        editUser: (userId, userObj) => dispatch(editUser(userId, userObj))
+        editUser: (userId, userObj) => dispatch(editUser(userId, userObj)),
+        logoutUser: () => dispatch(logoutUser())
     }
 }
 

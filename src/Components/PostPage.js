@@ -35,7 +35,6 @@ function PostPage({post, user, saveComment, comments}) {
 
     return(
         <div>
-            {console.log(comments)}
             <h1>hello I am postpage!</h1>
             <h1>Title: {post.title}</h1>
             <h3>Date: {post.date}</h3>

@@ -65,7 +65,7 @@ const PostDisplay = props => {
                     <form onSubmit={handleSubmit}>
                         <input type='text' name='title' placeholder='title goes here!' onChange={changeHandle} />
                         <input type='textarea' name='content' placeholder='text goes here!' onChange={changeHandle} />
-                        <input type='file' name='image' onChange={changeHandle}/>
+                        <input type='file' name='image' onChange={changeHandle} />
                         <button>Submit</button>
                     </form>
                 </div>
@@ -102,6 +102,7 @@ const PostContainer = styled.div`
     align-items: center;
     overflow: auto;
     border: solid purple;
+    padding-top: 5%;
 `
 
 const Button = styled.button`
