@@ -14,7 +14,8 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
 
     const renderComments = () => {
         let postComments = comments.filter(comment => comment.post.id === post.id)
-        return postComments.map(comment => <Comment key={comment.id} comment={comment} />)
+        let sortedComments = postComments.sort((a,b) => b.up_votes - a.up_votes);
+        return sortedComments.map(comment => <Comment key={comment.id} comment={comment} />)
     }
 
     const submitHandle = event => {
@@ -25,8 +26,7 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
             post_id: post.id,
             user_id: user.id,
             date: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
-            time: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + 'T' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds() + ".000Z",
-            // add up-vote
+            up_votes: 0,
         }
         saveComment(savedPost);
         setComment("");
@@ -66,15 +66,18 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
                             <ChatIcon  src={ChatSvg} alt='chat icon' />
                             <Span >{post.comments.length} Comments</Span>
                             <FlagIcon src={FlagSvg} alt='flag icon' />
-                            <Span>Report</Span>
+                            <FlagSpan>Report</FlagSpan>
                         </BottomContainer>
                     </ContentContainer>  
                 </PostContainer>
+                {user ? 
                 <Form onSubmit={submitHandle}>
-                    <CommentInput placeholder='Enter Comment here' name='comment' onChange={changeHandle} />
+                    <CommentInput placeholder='Enter Comment here' name='comment' onChange={changeHandle} value={comment}/>
                     <br></br>
                     <button style={{marginTop: "2%"}}>Submit</button>
                 </Form>
+                :
+                <h3>Must Login</h3> }
                 {renderComments()}
             </InnerContainer>
         </Container>
@@ -193,9 +196,6 @@ const BottomContainer = styled.div`
 `
 
 const ChatIcon = styled.img`
-    &:hover {
-        cursor: pointer;
-    };
 `
 
 const FlagIcon = styled.img`
@@ -211,7 +211,10 @@ const Span = styled.span`
     align-items: center;
     margin-left: 7px;
     font-weight: bold;
+`
+
+const FlagSpan = styled(Span)`
     &:hover {
         cursor: pointer;
-    }
+    };
 `

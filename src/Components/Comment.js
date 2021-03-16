@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {updateCommentVote, deleteComment} from '../Redux/actions.js';
 import styled from 'styled-components';
+import UpArrow from '../asset/up_arrow.svg';
+import DownArrow from '../asset/down_arrow.svg';
 
 const Comment = props => {
     
@@ -24,14 +26,14 @@ const Comment = props => {
 
     return(
         <Container>
-            <LikeContainer>
-                <button style={{borderStyle: "none"}} name="up" onClick={clickHandle}>👍</button>
+            <ButtonContainer>
+                <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={clickHandle} />
                 <span>{props.comment.up_votes}</span>
-                <button style={{borderStyle: "none"}} name="down" onClick={clickHandle}>👎</button>
-            </LikeContainer>
+                <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={clickHandle} />
+            </ButtonContainer>
             <ContentContainer>
-                <span style={{ color: 'black', fontSize: '14px', marginLeft: '5px' }}>posted by {props.comment.user.username} on {props.comment.date}</span>
-                <h4>{props.comment.content}</h4>
+                <span style={{ color: 'black', fontSize: '12px', marginLeft: '5px' }}>posted by {props.comment.user.username} on {props.comment.date}</span>
+                <p styled={{fonSize: '16px'}}>{props.comment.content}</p>
             </ContentContainer>
             <button name="delete" onClick={clickHandle}>X</button>
         </Container>
@@ -50,20 +52,30 @@ export default connect(null, mdp)(Comment);
 const Container = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 2%;
     width: 80%;
     height: auto;
     box-shadow: 0px 0px 10px grey;
     margin-bottom: 5%;
-    padding: 2%;
+    padding-top: 2%;
 `
 
-const LikeContainer = styled.div`
+const UpVote = styled.img`
+    height: 12px;
+    width: 17px;
+    &:hover {
+        cursor: pointer;
+    }
+`
+
+const ButtonContainer = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    width: 5%;
+    top: 0%;
+    padding-top: 1%;
 `
 
 const ContentContainer = styled.div`
@@ -73,4 +85,6 @@ const ContentContainer = styled.div`
     width: 80%;
     height: auto;
     align-items: flex-start;
+    padding-left: 1%;
 `
+
