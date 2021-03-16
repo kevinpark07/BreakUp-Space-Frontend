@@ -34,8 +34,10 @@ const Comment = props => {
                 <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={clickHandle} />
                 <span style={{margin: '0px 4px'}}>{props.comment.up_votes}</span>
                 <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={clickHandle} />
-                <FlagIcon src={FlagSvg} alt='flag icon' />
-                <FlagSpan>Report</FlagSpan>
+                <a style={{display: 'flex', textDecoration: 'none', color: 'black'}} href={`mailto:info@breakupspace.com?subject=Report Comment ${props.comment.id}&body=Hi, I would like to report this comment due to`}>
+                    <FlagIcon src={FlagSvg} alt='flag icon' />
+                    <FlagSpan>Report</FlagSpan>
+                </a>
             </BottomContainer>
             </ContentContainer>
             <button name="delete" onClick={clickHandle}>X</button>

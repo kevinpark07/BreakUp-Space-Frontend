@@ -47,8 +47,10 @@ const PostCard = (props) => {
                     <BottomContainer>
                         <ChatIcon onClick={() => setRedirect(true)} src={ChatSvg} alt='chat icon' />
                         <Span onClick={() => setRedirect(true)}>{props.info.comments.length} Comments</Span>
+                        <a style={{display: 'flex', textDecoration: 'none', color: 'black'}} href={`mailto:info@breakupspace.com?subject=Report Post ${props.info.id}&body=Hi, I would like to report this post due to`}>
                         <FlagIcon src={FlagSvg} alt='flag icon' />
                         <Span>Report</Span>
+                        </a>
                     </BottomContainer>
                 </PostContainer>
             </Container>
@@ -150,6 +152,7 @@ const Span = styled.span`
     align-items: center;
     margin-left: 7px;
     font-weight: bold;
+    text-decoration: none;
     &:hover {
         cursor: pointer;
     }
