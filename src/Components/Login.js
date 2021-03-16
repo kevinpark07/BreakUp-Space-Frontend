@@ -36,7 +36,7 @@ import styled from 'styled-components';
                     <br/>
                     <input style={{width: "150px", height: '25px'}} type='password' name='password' placeholder='Password' onChange={changeHandle}/>
                     <br></br>
-                    <button style={{width: "100px", height: '35px', backgroundColor:'#BFA0E2', color:'white', fontWeight: 'bold'}} >Submit</button>
+                    <Button>Submit</Button>
                 </LoginForm>
             </Container>
         )
@@ -75,4 +75,21 @@ const LoginForm = styled.form`
     padding: 50px; 
     text-align: center;
     background-color: #333;
+    border-radius: 15px;
+`
+const Button = styled.button`
+    height: 40px;
+    background-color: #BFA0E2;
+    border-color: #BFA0E2;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 120px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 20px;
+    letter-spacing: 1px;
+    &:hover{
+        cursor: pointer;
+    }
 `

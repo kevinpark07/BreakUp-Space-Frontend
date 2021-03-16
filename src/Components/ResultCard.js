@@ -35,6 +35,7 @@ const ResultCard = (props) => {
     const [open, setOpen] = useState(false);
     const [save, setSave] = useState(false);
     const [message, setMessage] = useState(props.result.message);
+    const [editMessage, setEditMessage] = useState(false)
 
     const handleOpen = () => {
         setOpen(true);
@@ -74,16 +75,23 @@ const ResultCard = (props) => {
       }
     
     return (
-        <div>
-        {renderResuleHeader()}
-        <Message>
-          <TextArea onChange={handleChange} value={message}/>
+      <>
+        <HeaderContainer>
+          {renderResuleHeader()}
+          <PTag onClick={props.resetQuiz}>Try Again?</PTag>
+        </HeaderContainer>
+        <Message edit={editMessage}>
+          {editMessage ? <TextArea onChange={handleChange} value={message}/> : <p style={{padding: '2px', margin: '0px'}}>{message}</p>}
         </Message>
-        <ButtonContainer>
-            <Button onClick={props.resetQuiz}>Try Again</Button>
+        <ButtonContainer user={props.user}>
+            {editMessage ?
+              <Button onClick={() => setEditMessage(!editMessage)}>Done Editting</Button>
+              :
+              <Button onClick={() => setEditMessage(!editMessage)}> Edit Text</Button>
+            }
             {props.user ? <Button onClick={handleSave}>Save Text</Button> : null}  
             <CopyButton text={message} onCopy={handleOpen}>
-                <button>Copy Text!</button>
+                <span>Copy Text!</span>
             </CopyButton>
         </ButtonContainer>
         <Modal
@@ -94,7 +102,7 @@ const ResultCard = (props) => {
         >
             <h5 style={{color: 'white'}}>{save ? 'Saved!' : 'Copied!'}</h5>
         </Modal>       
-        </div>
+        </>
     )
 }
 
@@ -113,128 +121,113 @@ const mdp = dispatch => {
 
 export default connect(msp, mdp)(ResultCard);
 
-const ButtonContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1.5px solid #a9a9a9;
+  margin-bottom: 20px;
 `
 
+const PTag = styled.p`
+  margin: 0px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #bfa0e2;
+  &:hover{
+    cursor: pointer;
+    color: #9865d0;
+  }
+`
+
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: ${props => props.user ? `space-between`: `space-around`}; 
+  `
+
 const Button = styled.button`
-    display: inline-block;
     white-space: nowrap;
     width: 120px;
     border-radius: 12px;
     border: #bfa0e2;
     font-weight: 600;
-    color: #2a2a2a;
-    background-color: #bfa0e2;
+    color: white;
+    background-color: #333;
     font-size: 14px;
     margin-top: 20px;
-    padding: 15px 36px;
-    text-align: center; 
     &:hover {
         cursor: pointer;
     }
 `
 
 const CopyButton = styled(CopyToClipboard)`
-    display: inline-block;
     white-space: nowrap;
     width: 120px;
     border-radius: 12px;
     border: #bfa0e2;
     font-weight: 600;
-    color: #2a2a2a;
-    background-color: #bfa0e2;
+    color: white;
+    background-color: #333;
     font-size: 14px;
     margin-top: 20px;
-    padding: 15px 36px;
     text-align: center;
+    padding: 14px 0px;
     &:hover {
         cursor: pointer;
     }
 `
 
 const Header = styled.h1`
-    border-radius: 20px;
-    padding: 8px 15px;
     margin-top: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
-    margin-right: 25%;
-    background-color: white;
-    position: relative;
     font-weight: 600;
     font-size: 16px;
-    &:before {
-        content: "";
-        position: absolute;
-        z-index: 0;
-        bottom: 0;
-        left: -7px;
-        height: 20px;
-        width: 20px;
-        background: white;
-        border-bottom-right-radius: 15px;
-    }
-    &:after {
-        content: "";
-        position: absolute;
-        z-index: 1;
-        bottom: 0;
-        left: -10px;
-        width: 10px;
-        height: 20px;
-        background: #EAEAEA;
-        border-bottom-right-radius: 10px;
-      }
 `
 
 const Message = styled.div`
-border-radius: 20px;
-padding: 8px 15px;
-margin-top: 5px;
-margin-bottom: 5px;
-display: inline-block;
-color: white;
-margin-left: 25%;
-background: #bfa0e2;
-background-attachment: fixed;
-position: relative;
-margin-bottom: 20px;
-&:before{
-    content: "";
-    position: absolute;
-    z-index: 0;
-    bottom: 0;
-    right: -8px;
-    height: 20px;
-    width: 20px;
-    background: #bfa0e2;
-    background-attachment: fixed;
-    border-bottom-left-radius: 15px;
-  }
-  &:after{
-    content: "";
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    right: -10px;
-    width: 10px;
-    height: 20px;
-    background: #eaeaea;
-    border-bottom-left-radius: 10px;
-  }
-    &:hover {
-      cursor: pointer;
-  }
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+  margin-left: 25%;
+  background-attachment: fixed;
+  position: relative;
+  margin-bottom: 20px;
+  &:before{
+      content: "";
+      position: absolute;
+      z-index: 0;
+      bottom: 0;
+      right: -8px;
+      height: 20px;
+      width: 20px;
+      background: ${props => props.edit ? `#78ff7d`: `#bfa0e2`};
+      background-attachment: fixed;
+      border-bottom-left-radius: 15px;
+    }
+    &:after{
+      content: "";
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      right: -10px;
+      width: 10px;
+      height: 20px;
+      background: #eaeaea;
+      border-bottom-left-radius: 10px;
+    }
+    ${props => props.edit ?
+      `background-color: #78ff7d`: `background-color: #bfa0e2`}
 `
 
 const TextArea = styled.textarea`
   border: none;
   color: white;
-  background: #bfa0e2;
+  background: #78ff7d;
   resize: none;
   height: 150px;
   font-family: helvetica;
   font-size: 16px;
+  width: 100%;
 `
