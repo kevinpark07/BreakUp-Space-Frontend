@@ -235,4 +235,6 @@ const TextArea = styled.textarea`
   background: #bfa0e2;
   resize: none;
   height: 150px;
+  font-family: helvetica;
+  font-size: 16px;
 `
