@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {updateCommentVote, deleteComment} from '../Redux/actions.js'
+import {updateCommentVote, deleteComment} from '../Redux/actions.js';
+import styled from 'styled-components';
 
 const Comment = props => {
     
@@ -22,16 +23,18 @@ const Comment = props => {
 
 
     return(
-        <div>
-            <p>Comment: {props.comment.content}</p>
-            <p>Date: {props.comment.date}</p>
-            <p>Time: {props.comment.time}</p>
-            <p>Username: {props.comment.user.username}</p>
-            <p>Up-Votes: {props.comment.up_votes}</p>
-            <button name="up" onClick={clickHandle}>👍</button>
-            <button name="down" onClick={clickHandle}>👎</button>
+        <Container>
+            <LikeContainer>
+                <button style={{borderStyle: "none"}} name="up" onClick={clickHandle}>👍</button>
+                <span>{props.comment.up_votes}</span>
+                <button style={{borderStyle: "none"}} name="down" onClick={clickHandle}>👎</button>
+            </LikeContainer>
+            <ContentContainer>
+                <span style={{ color: 'black', fontSize: '14px', marginLeft: '5px' }}>posted by {props.comment.user.username} on {props.comment.date}</span>
+                <h4>{props.comment.content}</h4>
+            </ContentContainer>
             <button name="delete" onClick={clickHandle}>X</button>
-        </div>
+        </Container>
     )
 }
 
@@ -43,3 +46,31 @@ const mdp = dispatch => {
 }
 
 export default connect(null, mdp)(Comment);
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 2%;
+    width: 80%;
+    height: auto;
+    box-shadow: 0px 0px 10px grey;
+    margin-bottom: 5%;
+    padding: 2%;
+`
+
+const LikeContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+const ContentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    height: auto;
+    align-items: flex-start;
+`

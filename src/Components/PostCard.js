@@ -140,6 +140,8 @@ const Content = styled.h3`
     &:hover {
         cursor: pointer;
     }
+    overflow: auto;
+    overflow-wrap: break-word;
 `
 
 const Span = styled.span`
