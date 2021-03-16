@@ -49,38 +49,39 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
     }
 
     return (
-        <Container>
-            {console.log(post)}
-            <VoteContainer>
-                        <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={changeHandle} />
-                        <span>{post.up_votes}</span>
-                        <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={changeHandle} />
-            </VoteContainer>
-            <InnerContainer>
-                <PostContainer>
-                    <ContentContainer>
-                        <span style={{ color: 'black', fontSize: '14px', marginLeft: '5px' }}>posted by {post.user.username} on {post.date}</span>
-                        <Content>{post.content}</Content>
-                        {post.image ? <Image alt='text' src={post.image} /> : null}
-                        <BottomContainer>
-                            <ChatIcon  src={ChatSvg} alt='chat icon' />
-                            <Span >{post.comments.length} Comments</Span>
-                            <FlagIcon src={FlagSvg} alt='flag icon' />
-                            <FlagSpan>Report</FlagSpan>
-                        </BottomContainer>
-                    </ContentContainer>  
-                </PostContainer>
-                {user ? 
-                <Form onSubmit={submitHandle}>
-                    <CommentInput placeholder='Enter Comment here' name='comment' onChange={changeHandle} value={comment}/>
-                    <br></br>
-                    <button style={{marginTop: "2%"}}>Submit</button>
-                </Form>
-                :
-                <h3>Must Login</h3> }
-                {renderComments()}
-            </InnerContainer>
-        </Container>
+        <div style={{display: 'flex', justifyContent: 'center'}}>    
+            <Container>
+                <VoteContainer>
+                    <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={changeHandle} />
+                    <span>{post.up_votes}</span>
+                    <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={changeHandle} />
+                </VoteContainer>
+                <InnerContainer>
+                    <PostContainer>
+                        <ContentContainer>
+                            <span style={{ color: 'black', fontSize: '14px', marginLeft: '5px' }}>posted by {post.user.username} on {post.date}</span>
+                            <Content>{post.content}</Content>
+                            {post.image ? <Image alt='text' src={post.image} /> : null}
+                            <BottomContainer>
+                                <ChatIcon  src={ChatSvg} alt='chat icon' />
+                                <Span >{post.comments.length} Comments</Span>
+                                <FlagIcon src={FlagSvg} alt='flag icon' />
+                                <FlagSpan>Report</FlagSpan>
+                            </BottomContainer>
+                        </ContentContainer>  
+                    </PostContainer>
+                    {user ? 
+                    <Form onSubmit={submitHandle}>
+                        <CommentInput placeholder='Enter Comment here' name='comment' onChange={changeHandle} value={comment}/>
+                        <br></br>
+                        <button style={{marginTop: "2%"}}>Submit</button>
+                    </Form>
+                    :
+                    <h4>Must be logged in to Comment. <br></br><a href="/login">Log-in</a>?</h4> }
+                    {renderComments()}
+                </InnerContainer>
+            </Container>
+        </div>
     )
 }
 
@@ -111,18 +112,18 @@ const Form = styled.form`
 const CommentInput = styled.textarea`
     height: 80px;
     width: 100%;
-    margin-right: 2%;
 `
 
 const Container = styled.div`
     display: flex;
     flex-direction: row;
+    width: 80%;
     height: auto;
-    background-color: #333;
     overflow: auto;
-    padding: 2%;
+    padding: 2% 0%;
     margin-top: 2%;
     justify-content: center;
+    box-shadow: 0px 0px 10px grey;
 `
 const InnerContainer = styled.div`
     display: flex;
@@ -148,7 +149,6 @@ const PostContainer= styled.div`
 const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 80%;
     height: auto;
 `
 

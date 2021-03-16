@@ -4,6 +4,7 @@ import {updateCommentVote, deleteComment} from '../Redux/actions.js';
 import styled from 'styled-components';
 import UpArrow from '../asset/up_arrow.svg';
 import DownArrow from '../asset/down_arrow.svg';
+import FlagSvg from '../asset/flag.svg';
 
 const Comment = props => {
     
@@ -26,14 +27,16 @@ const Comment = props => {
 
     return(
         <Container>
-            <ButtonContainer>
-                <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={clickHandle} />
-                <span>{props.comment.up_votes}</span>
-                <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={clickHandle} />
-            </ButtonContainer>
             <ContentContainer>
-                <span style={{ color: 'black', fontSize: '12px', marginLeft: '5px' }}>posted by {props.comment.user.username} on {props.comment.date}</span>
+                <span style={{ color: 'black', fontSize: '12px', fontWeight: 'bold'}}>posted by {props.comment.user.username} on {props.comment.date}</span>
                 <p styled={{fonSize: '16px'}}>{props.comment.content}</p>
+            <BottomContainer>
+                <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={clickHandle} />
+                <span style={{margin: '0px 4px'}}>{props.comment.up_votes}</span>
+                <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={clickHandle} />
+                <FlagIcon src={FlagSvg} alt='flag icon' />
+                <FlagSpan>Report</FlagSpan>
+            </BottomContainer>
             </ContentContainer>
             <button name="delete" onClick={clickHandle}>X</button>
         </Container>
@@ -58,33 +61,49 @@ const Container = styled.div`
     height: auto;
     box-shadow: 0px 0px 10px grey;
     margin-bottom: 5%;
-    padding-top: 2%;
+    padding: 2% 0%;
 `
 
 const UpVote = styled.img`
-    height: 12px;
-    width: 17px;
+    height: 15px;
+    width: 20px;
     &:hover {
         cursor: pointer;
     }
-`
-
-const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 5%;
-    top: 0%;
-    padding-top: 1%;
 `
 
 const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 80%;
+    width: 90%;
     height: auto;
     align-items: flex-start;
     padding-left: 1%;
 `
 
+const FlagIcon = styled.img`
+    margin-left: 22px;
+    height: 14px;
+    &:hover {
+        cursor: pointer;
+    };
+`
+
+const FlagSpan = styled.span`
+    display: flex;
+    width: 110px;
+    align-items: center;
+    margin-left: 7px;
+    font-weight: bold;
+    font-size: 14px;
+    &:hover {
+        cursor: pointer;
+    };
+`
+
+const BottomContainer = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+`
