@@ -15,10 +15,11 @@ Coming soon ... Site is currently being developed!
 - React
 - Redux
 - Material UI
+- Cloudinary
 - Styled-Components
 - Cloudinary
 
-#### [Backend](https://github.com/kevinpark07/Breakup-Space-Backend)
+#### [Backend](https://github.com/slurio/Breakup-Space-Backend)
 
 - Ruby on Rails
 - PostgreSQL
