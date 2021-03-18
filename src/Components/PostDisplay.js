@@ -52,8 +52,7 @@ const PostDisplay = props => {
         <Container>
             <Header>
                 <h1>Community Board</h1>
-                <Button onClick={handleOpen}>Write Post</Button>
-                {/* {props.user ? <Button onClick={handleOpen}>Write Post</Button> : <h4>Must be logged in to Post or Comment. <br></br><a href="/login">Log-in</a>?</h4>} */}
+                {props.user ? <Button onClick={handleOpen}>Write Post</Button> : <h4>Must be logged in to Post or Comment. <br></br><a href="/login">Log-in</a>?</h4>}
             </Header>
             <PostContainer>
                 {renderPosts()}
@@ -64,13 +63,13 @@ const PostDisplay = props => {
             >
                 <FormContainer>
                     <Form onSubmit={handleSubmit}>
-                        <h1>Create a Post</h1>
-                        <label>Title</label>
-                        <Input type='text' name='title' placeholder='Title' onChange={changeHandle} />
-                        <label>Content</label>
+                        <h1 style={{color:"#78FF7D"}}>Create a Post</h1>
+                        <Label>Title</Label>
+                        <Input type='text' name='title' placeholder='Enter Title' onChange={changeHandle} />
+                        <Label>Content</Label>
                         <TextArea name='content' placeholder='Text (optional)' onChange={changeHandle} />
-                        <label>Choose File</label>
-                        <Input type='file' name='image' onChange={changeHandle} />
+                        <Label>Choose File</Label>
+                        <Input style={{color:"#78FF7D"}} type='file' name='image' onChange={changeHandle} />
                         <FormButton>Submit</FormButton>
                     </Form>
                 </FormContainer>
@@ -105,27 +104,36 @@ const FormContainer = styled.div`
     transform: translate(-50%, -50%);
     width: 500px;
     height: auto;
-    background: #EAEAEA;
+    background: #333;
 `
 
 const Form = styled.form`
+    width: 500px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    border: solid blue;
-    width: 500px;
+    justify-content: center;
+    padding: 20px;
+`
+
+const Label = styled.label`
+    align-self: flex-start;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
 `
 
 const Input = styled.input`
     margin-bottom: 5%;
-    border: solid green;
+    width: 100%;
+    height: 30px;
 `
 
 const TextArea = styled.textarea`
     margin-bottom: 5%;
-    width: 
-    border: solid orange;
+    width: 100%;
+    height: 80px;
+    resize: none;
 `
 
 const FormButton = styled.button`
