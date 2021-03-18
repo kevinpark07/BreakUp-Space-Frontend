@@ -26,16 +26,24 @@ const PostDisplay = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        var today = new Date()
-        let formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('user_id', props.user.id);
-        formData.append('date', (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear());
-        formData.append('image', image);
+        if (title && (content || image)) {
+            var today = new Date()
+            let formData = new FormData();
+            formData.append('title', title);
+            formData.append('content', content);
+            formData.append('user_id', props.user.id);
+            formData.append('date', (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear());
+            formData.append('image', image);
+    
+            props.savePost(formData);
+            handleClose();
+        } else {
+            console.log('ERROR')
+        }
 
-        props.savePost(formData);
-        setOpen(false);
+        setTitle("");
+        setContent("");
+        setImage("");
     }
 
     const changeHandle = (event) => {
