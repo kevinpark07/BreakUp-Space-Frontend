@@ -38,7 +38,11 @@ const PostDisplay = props => {
             props.savePost(formData);
             handleClose();
         } else {
-            console.log('ERROR')
+            if (!title) {
+                alert('You must include a title')
+            } else if (!content || !image) {
+                alert('You must include content')
+            } 
         }
 
         setTitle("");

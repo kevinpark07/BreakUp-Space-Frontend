@@ -34,20 +34,21 @@ const PostCard = (props) => {
             <Container>
                 <ButtonContainer>
                     <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={clickHandle} />
-                    <span style={{ fontWeight: 'bold', fontSize: "15pt", marginTop: '2%', marginBottom: '2%' }}>{props.info.up_votes}</span>
+                    <span style={{ fontWeight: 'bold', fontSize: "15pt", marginTop: '2%', marginBottom: '2%', color: '#333' }}>{props.info.up_votes}</span>
                     <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={clickHandle} />
                 </ButtonContainer>
                 <PostContainer>
                     <TopContainer>
-                        <span style={{ color: 'black', fontSize: '14px', marginLeft: '5px' }}>posted by {props.info.user.username} on {props.info.date}</span>
+                        <span style={{color: '#333', fontSize: '14px', marginLeft: '5px', fontWeight: 'bold'}}>posted by {props.info.user.username} on {props.info.date}</span>
                         <PostButton name="delete" onClick={clickHandle}>X</PostButton>
                     </TopContainer>
+                    <span onClick={() => setRedirect(true)} style={{color: 'white', magrinBottom:'20px' , marginTop:'20px', fontWeight:'bold', fontSize: '20pt'}}>{props.info.title}</span>
                     <Content onClick={() => setRedirect(true)}>{props.info.content}</Content>
                     {props.info.image ? <Image alt='text' src={props.info.image} /> : null}
                     <BottomContainer>
                         <ChatIcon onClick={() => setRedirect(true)} src={ChatSvg} alt='chat icon' />
                         <Span onClick={() => setRedirect(true)}>{props.info.comments.length} Comments</Span>
-                        <a style={{display: 'flex', textDecoration: 'none', color: 'black'}} href={`mailto:info@breakupspace.com?subject=Report Post ${props.info.id}&body=Hi, I would like to report this post due to`}>
+                        <a style={{display: 'flex', textDecoration: 'none', color: '#333'}} href={`mailto:info@breakupspace.com?subject=Report Post ${props.info.id}&body=Hi, I would like to report this post due to`}>
                         <FlagIcon src={FlagSvg} alt='flag icon' />
                         <Span>Report</Span>
                         </a>
@@ -67,6 +68,7 @@ const mdp = dispatch => {
 export default connect(null, mdp)(PostCard);
 
 const Container = styled.div`
+    background-color: #bfa0e2;
     display: flex;
     flex-direction: row; 
     height: auto;
@@ -133,12 +135,12 @@ const BottomContainer = styled.div`
     font-size: 14px;
 `
 
-const Content = styled.h3`
-    margin-bottom: 10px;
+const Content = styled.p`
+    margin-bottom: 30px;
     margin-top: 10px;
     margin-left: 5px;
-    color: black;
-    font-size: 25px;
+    font-size: 14pt;
+    color: white;
     &:hover {
         cursor: pointer;
     }
@@ -153,6 +155,7 @@ const Span = styled.span`
     margin-left: 7px;
     font-weight: bold;
     text-decoration: none;
+    color: #333;
     &:hover {
         cursor: pointer;
     }
