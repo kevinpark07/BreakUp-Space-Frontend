@@ -15,8 +15,8 @@ Coming soon ... Site is currently being developed!
 - React
 - Redux
 - Material UI
-- Styled-Components
 - Cloudinary
+- Styled-Components
 
 #### [Backend](https://github.com/kevinpark07/Breakup-Space-Backend)
 
