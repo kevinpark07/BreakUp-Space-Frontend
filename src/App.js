@@ -28,7 +28,6 @@ class App extends React.Component {
     return (
       <div>
         <NavBar/>
-        {/* <div> */}
           <Switch>
             <Route path={'/quiz'} render={ () => <BreakupQuizContainer/>} />
             <Route path={'/profile'} render={ () => <UserProfile/>} />
@@ -39,7 +38,6 @@ class App extends React.Component {
             <Route path={'/partners'} render={ () => <Partners/>} />
             <Route path={'/'} render={ () => <HomePage/>} />
           </Switch>
-        {/* </div> */}
         <Footer/>
       </div>
     );
