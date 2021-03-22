@@ -28,8 +28,7 @@ import styled from 'styled-components';
 
         return (
             <Container>
-                {/* {props.user ? <Redirect to='/'/>: null} */}
-                {props.user ? <Redirect to='/posts'/> : null}
+                {props.user ? <Redirect to='/'/>: null}
                 <LoginForm onSubmit={handleSubmit}>
                     <h1 style={{marginBottom: "10px", marginTop: "0%", color: "white"}}>Log In</h1>
                     <span style={{marginBottom: "40px", color: "white"}}>Login here using our username and password</span>
@@ -39,6 +38,8 @@ import styled from 'styled-components';
                     <br></br>
                     <Button>Submit</Button>
                 </LoginForm>
+                <span>Don't Have An Account?</span>
+                <a href='/signup' alt='sign-up'>Sign-Up</a>
             </Container>
         )
     }

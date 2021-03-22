@@ -166,3 +166,17 @@ export const saveFavoriteMessage = (messageObj) => {
 }
 
 export const logoutUser = user => ({ type: "LOGOUT_USER", payload: "" });
+
+export const createUser = userObj => {
+    return function (dispatch) {
+        fetch(USERS_URL, {
+            method: 'POST',
+            headers: {
+                accepts: 'application/json'
+            },
+            body: userObj
+        })
+        .then(resp => resp.json())
+        .then(newUser => dispatch({ type: 'NEW_USER', payload: newUser}))
+    }
+}

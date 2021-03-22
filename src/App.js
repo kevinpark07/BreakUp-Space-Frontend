@@ -6,6 +6,7 @@ import PostGallery from './Containers/PostGallery';
 import BreakupQuizContainer from './Containers/BreakupQuizContainer';
 import Login from './Components/Login';
 import UserProfile from './Components/UserProfile';
+import SignUp from './Components/Sign-Up'
 import About from './Components/About'
 import { Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -32,6 +33,7 @@ class App extends React.Component {
             <Route path={'/quiz'} render={ () => <BreakupQuizContainer/>} />
             <Route path={'/profile'} render={ () => <UserProfile/>} />
             <Route path={'/login'} render={ () => <Login/>} />
+            <Route path={'/signup'} render={ () => <SignUp/>} />
             <Route path={'/posts'} render={ () => <PostGallery/>} />
             <Route path={'/about'} render={ () => <About/>} />
             <Route path={'/contact_us'} render={ () => <ContactUs/>} />

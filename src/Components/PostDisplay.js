@@ -77,9 +77,9 @@ const PostDisplay = props => {
                     <Form onSubmit={handleSubmit}>
                         <h1 style={{color:"#78FF7D"}}>Create a Post</h1>
                         <Label>Title</Label>
-                        <Input type='text' name='title' placeholder='Enter Title' onChange={changeHandle} />
+                        <Input type='text' value={title} name='title' placeholder='Enter Title' onChange={changeHandle} />
                         <Label>Content</Label>
-                        <TextArea name='content' placeholder='Text (optional)' onChange={changeHandle} />
+                        <TextArea name='content' value={content} placeholder='Text (optional)' onChange={changeHandle} />
                         <Label>Choose File</Label>
                         <Input style={{color:"#78FF7D"}} type='file' name='image' onChange={changeHandle} />
                         <FormButton>Submit</FormButton>
