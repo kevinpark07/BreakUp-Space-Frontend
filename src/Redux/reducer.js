@@ -17,7 +17,7 @@ function usersReducer(state = defaultState.users, action) {
             break;
         case 'UPDATED_USER':
             let newUsersArray = state.filter(user => user.id !== action.payload.id);
-            return [newUsersArray, action.payload]
+            return [...newUsersArray, action.payload]
             break;
         case 'NEW_USER':
             return [...state, action.payload]
@@ -33,15 +33,14 @@ function postsReducer(state = defaultState.posts, action) {
         case 'GET_POSTS':
             return action.payload
             break;
-        case 'NEW_POSTS':
+        case 'NEW_POST':
             return [...state, action.payload]
             break;
         case 'UPDATED_POST':
             let updatedArray = state.filter(post => post.id !== action.payload.id);
-            return [updatedArray, action.payload] 
+            return [...updatedArray, action.payload] 
             break;
-        case 'DELETE':
-            debugger
+        case 'DELETE_POST':
             let newArray = state.filter(post => post.id !== action.payload.id);
             return newArray
             break;
@@ -107,7 +106,7 @@ function commentsReducer(state = defaultState.comments, action) {
             break;
         case 'UPDATE_COMMENT':
             let filteredCommentsArray = state.filter(comment => comment.id !== action.payload.id);
-            return [filteredCommentsArray, action.payload]
+            return [...filteredCommentsArray, action.payload]
             break;
         case 'DELETE_COMMENT':
             let newCommentsArray = state.filter(comment => comment.id !== action.payload.id);

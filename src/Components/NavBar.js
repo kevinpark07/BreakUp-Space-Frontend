@@ -17,7 +17,7 @@ function NavBar(props) {
         </LinkContainer>
      
         <IconContainer>
-          <Link to={props.user ? "/profile": "/login"}>
+          <Link to={props.user ? `/profile/${props.user.id}`: "/login"}>
             <Icon style={{fontSize: "24pt"}}/>
           </Link>
         </IconContainer>

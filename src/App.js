@@ -30,8 +30,8 @@ class App extends React.Component {
       <div>
         <NavBar/>
           <Switch>
+            <Route path={'/profile/:id'} render={ () => <UserProfile /> } />
             <Route path={'/quiz'} render={ () => <BreakupQuizContainer/>} />
-            <Route path={'/profile'} render={ () => <UserProfile/>} />
             <Route path={'/login'} render={ () => <Login/>} />
             <Route path={'/signup'} render={ () => <SignUp/>} />
             <Route path={'/posts'} render={ () => <PostGallery/>} />
@@ -44,13 +44,12 @@ class App extends React.Component {
       </div>
     );
   }
-
 }
 
 const msp = (state) => {
     return {
-      posts: state.posts,
-      messages: state.messages
+      user: state.user,
+      users: state.users
     }
 }
 

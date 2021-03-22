@@ -13,7 +13,7 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
     const [comment, setComment] = useState("")
 
     const renderComments = () => {
-        let postComments = comments.filter(comment => comment.post.id === post.id)
+        let postComments = comments.filter(comment => comment.post.id === post.id);
         let sortedComments = postComments.sort((a,b) => b.up_votes - a.up_votes);
         return sortedComments.map(comment => <Comment key={comment.id} comment={comment} />)
     }

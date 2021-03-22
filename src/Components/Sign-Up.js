@@ -2,15 +2,16 @@ import {React, useState} from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {createUser} from '../Redux/actions';
+import {Redirect} from 'react-router-dom';
 
 const SignUp = (props) => {
     
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [profileImage, setProfileImage] = useState("");
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [profileImage, setProfileImage] = useState('');
     
     const submitHandle = (event) => {
         event.preventDefault();
@@ -58,7 +59,7 @@ const SignUp = (props) => {
 
     return (
         <div>
-            {console.log(profileImage)}
+            {props.user ? <Redirect to={`/profile/${props.user.id}`} />: null}
             <form onSubmit={submitHandle}>
                 <input type='text' value={name} placeholder='Enter Full Name' name='name' onChange={changeHandle} />
                 <input type='text' value={email} placeholder='Enter E-mail' name='email' onChange={changeHandle} />
@@ -74,7 +75,8 @@ const SignUp = (props) => {
 
 const msp = state => {
     return {
-        users: state.users
+        users: state.users,
+        user: state.user
     }
 }
 
