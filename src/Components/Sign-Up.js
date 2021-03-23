@@ -1,21 +1,21 @@
-import {React, useState} from 'react';
+import { React, useState } from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
-import {createUser} from '../Redux/actions';
-import {Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createUser } from '../Redux/actions';
+import { Redirect } from 'react-router-dom';
 
 const SignUp = (props) => {
-    
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('');
     const [profileImage, setProfileImage] = useState('');
-    
+
     const submitHandle = (event) => {
         event.preventDefault();
-        
+
         if (email === '' || name === '' || username === '' || password === '') {
             alert('One or more fields are empty. All fields except for the profile image must be completed.');
         } else if (props.users.find(user => user.email === email)) {
@@ -53,23 +53,30 @@ const SignUp = (props) => {
             setConfirmPassword(event.target.value);
         } else if (event.target.name === 'profile_image') {
             setProfileImage(event.target.files[0]);
-        } 
+        }
     }
 
 
     return (
-        <div>
-            {props.user ? <Redirect to={`/profile/${props.user.id}`} />: null}
-            <form onSubmit={submitHandle}>
-                <input type='text' value={name} placeholder='Enter Full Name' name='name' onChange={changeHandle} />
-                <input type='text' value={email} placeholder='Enter E-mail' name='email' onChange={changeHandle} />
-                <input type='text' value={username} placeholder='Enter Username' name='username' onChange={changeHandle} />
-                <input type='password' value={password} placeholder='Enter Password' name='password' onChange={changeHandle} />
-                <input type='password' value={confirmPassword} placeholder='Confirm Password' name='password2' onChange={changeHandle} />
-                <input type='file' name='profile_image' onChange={changeHandle} />
-                <input type='submit' />
-            </form>
-        </div>
+        <Container>
+            {props.user ? <Redirect to={`/profile/${props.user.id}`} /> : null}
+            <SignUpForm onSubmit={submitHandle}>
+                <h1 style={{ textAlign: 'center', marginBottom: "15px", marginTop: "0%", color: "#78FF7D" }}>Sign Up</h1>
+                <Label>Full-Name</Label>
+                <Input type='text' value={name} placeholder='Enter Full Name' name='name' onChange={changeHandle} />
+                <Label>Email</Label>
+                <Input type='text' value={email} placeholder='Enter E-mail' name='email' onChange={changeHandle} />
+                <Label>Username</Label>
+                <Input type='text' value={username} placeholder='Enter Username' name='username' onChange={changeHandle} />
+                <Label>Password</Label>
+                <Input type='password' value={password} placeholder='Enter Password' name='password' onChange={changeHandle} />
+                <Label>Confirm Password</Label>
+                <Input type='password' value={confirmPassword} placeholder='Confirm Password' name='password2' onChange={changeHandle} />
+                <Label>Profile Image</Label>
+                <input style={{ color: "#78FF7D" }} type='file' name='profile_image' onChange={changeHandle} />
+                <Button>Submit</Button>
+            </SignUpForm>
+        </Container>
     )
 }
 
@@ -87,3 +94,53 @@ const mdp = dispatch => {
 }
 
 export default connect(msp, mdp)(SignUp);
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+`
+
+const SignUpForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 40px;
+    padding: 40px 60px; 
+    text-align: center;
+    background-color: #333;
+    border-radius: 15px;
+`
+const Button = styled.button`
+    text-align: center;
+    height: 40px;
+    background-color: #BFA0E2;
+    border-color: #BFA0E2;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 120px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 20px;
+    letter-spacing: 1px;
+    &:hover{
+        cursor: pointer;
+    }
+`
+
+const Label = styled.label`
+    align-self: flex-start;
+    margin-bottom: 5px;
+    color: white;
+`
+
+const Input = styled.input`
+    width: 100%;
+    margin-bottom: 18px;
+    height: 25px;
+`
+

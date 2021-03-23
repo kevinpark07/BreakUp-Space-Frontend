@@ -1,64 +1,64 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
-import {loginUser} from '../Redux/actions';
-import {Redirect} from 'react-router-dom';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../Redux/actions';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-    const Login = (props) => {
-        const [username, setUsername] = useState('');
-        const [password, setPassword] = useState('');
+const Login = (props) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-        const changeHandle = (event) => {
-            if (event.target.name === "username") {
-                setUsername(event.target.value);
-            } else if (event.target.name === "password") {
-                setPassword(event.target.value);
-            }
-        }
-        
-        const handleSubmit = (event) => {
-            event.preventDefault();
-            let foundUser = props.users.find(user => user.username === username && user.password === password)
-            if (foundUser) {
-                props.setUser(foundUser);
-            } else {
-             return alert('Incorrect Username or Password');
-            }
-        }
-
-        return (
-            <Container>
-                {props.user ? <Redirect to={`/profile/${props.user.id}`} />: null}
-                <LoginForm onSubmit={handleSubmit}>
-                    <h1 style={{marginBottom: "10px", marginTop: "0%", color: "white"}}>Log In</h1>
-                    <span style={{marginBottom: "40px", color: "white"}}>Login here using our username and password</span>
-                    <input style={{width: "150px", height: '25px'}} type='text' name='username' placeholder='Username' onChange={changeHandle} />
-                    <br/>
-                    <input style={{width: "150px", height: '25px'}} type='password' name='password' placeholder='Password' onChange={changeHandle}/>
-                    <br></br>
-                    <Button>Submit</Button>
-                </LoginForm>
-                <span>Don't Have An Account?</span>
-                <a href='/signup' alt='sign-up'>Sign-Up</a>
-            </Container>
-        )
-    }
-
-    const msp = state => {
-        return {
-            users: state.users,
-            user: state.user
+    const changeHandle = (event) => {
+        if (event.target.name === "username") {
+            setUsername(event.target.value);
+        } else if (event.target.name === "password") {
+            setPassword(event.target.value);
         }
     }
 
-    const mdp = dispatch => {
-        return {
-           setUser: (user) => dispatch(loginUser(user))
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let foundUser = props.users.find(user => user.username === username && user.password === password)
+        if (foundUser) {
+            props.setUser(foundUser);
+        } else {
+            return alert('Incorrect Username or Password');
         }
     }
 
+    return (
+        <Container>
+            {props.user ? <Redirect to={`/profile/${props.user.id}`} /> : null}
+            <LoginForm onSubmit={handleSubmit}>
+                <h1 style={{ marginBottom: "10px", marginTop: "0%", color: "#78FF7D" }}>Log In</h1>
+                <span style={{ marginBottom: "40px", color: "white" }}>Login here using our username and password</span>
+                <input style={{ width: "150px", height: '25px' }} type='text' name='username' placeholder='Username' onChange={changeHandle} />
+                <br />
+                <input style={{ width: "150px", height: '25px' }} type='password' name='password' placeholder='Password' onChange={changeHandle} />
+                <br></br>
+                <Button>Submit</Button>
+                <span style={{ color: "white" }}>Don't Have An Account?</span>
+                <a style={{ color: "#78FF7D" }} href='/signup' alt='sign-up'>Sign-Up</a>
+            </LoginForm>
+        </Container>
+    )
+}
 
-export default connect (msp, mdp)(Login);
+const msp = state => {
+    return {
+        users: state.users,
+        user: state.user
+    }
+}
+
+const mdp = dispatch => {
+    return {
+        setUser: (user) => dispatch(loginUser(user))
+    }
+}
+
+
+export default connect(msp, mdp)(Login);
 
 const Container = styled.div`
     display: flex;
@@ -90,6 +90,7 @@ const Button = styled.button`
     font-weight: 600;
     font-size: 14px;
     margin-top: 20px;
+    margin-bottom: 20px;
     letter-spacing: 1px;
     &:hover{
         cursor: pointer;
