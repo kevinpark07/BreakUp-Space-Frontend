@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
 const FavoriteCard = props => {
@@ -13,14 +13,14 @@ const FavoriteCard = props => {
 
     return (
         <Div>
-        {message ? 
-         <MessageContainer message={message} onClick={handleClick}>
-            <p>{props.message.message}</p>
-        </MessageContainer>
-        :
-        <ThemeContainer message={message} onClick={handleClick}>
-            <ThemeHeader>{topic.theme}</ThemeHeader>
-        </ThemeContainer>}
+            {message ?
+                <MessageContainer message={message} onClick={handleClick}>
+                    <p>{props.message.message}</p>
+                </MessageContainer>
+                :
+                <ThemeContainer message={message} onClick={handleClick}>
+                    <ThemeHeader>{topic.theme}</ThemeHeader>
+                </ThemeContainer>}
         </Div>
     )
 }
@@ -40,13 +40,12 @@ const Div = styled.div`
 `
 
 const MessageContainer = styled.div`
-    width: 20vw;
-    height: 40vh;
+    width: 200px;
+    height: 250px;
+    margin: 20px;
     border-radius: 20px;
-    padding: 8px 15px;
-    display: inline-block;
+    padding: 0px 15px;
     color: black;
-    margin-left: 25%;
     background: white;
     position: relative;
     &:after {
@@ -57,7 +56,7 @@ const MessageContainer = styled.div`
         right: -10px;
         width: 10px;
         height: 20px;
-        background: #EAEAEA;
+        background: #333;
         border-bottom-left-radius: 10px;
       }
     &:before {
@@ -80,10 +79,10 @@ const ThemeContainer = styled.div`
     font-size: 18px;
     justify-content: center;
     align-items: center;
-    width: 20vw;
-    height: 40vh;
+    width: 200px;
+    height: 250px;
     background-color: ${props => props.message ? '#EAEAEA' : '#78ff7d'};
-    margin: 10px;
+    margin: 20px;
     text-align: center;
     &:hover {
         cursor: pointer;

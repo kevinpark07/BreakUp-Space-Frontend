@@ -102,11 +102,13 @@ const UserProfile = (props) => {
                     <ProfileImage alt="profile_image" src={props.user.profile_image} />
                     <ProfileContainer>
                         <UsernameTitle>{props.user.username}</UsernameTitle>
-                        <button onClick={handleChange} name='logout'>Log Out</button>
-                        <ProfileButton onClick={handleOpen}>Edit Profile</ProfileButton>
+                        <ButtonContainer>
+                            <Button style={{ marginRight: "20px" }} onClick={handleChange} name='logout'>Log Out</Button>
+                            <Button onClick={handleOpen}>Edit Profile</Button>
+                        </ButtonContainer>
                     </ProfileContainer>
                 </DataContainer>
-                <ProfileModal
+                {/* <ProfileModal
                     open={open}
                     onClose={handleClose}
                 >
@@ -200,7 +202,7 @@ const UserProfile = (props) => {
                             <button>Submit</button>
                         </form>
                     </div>
-                </ProfileModal>
+                </ProfileModal> */}
 
                 <TextContainer>
                     <FavoritesContainer />
@@ -237,16 +239,29 @@ const ProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 70%;
+`
+const DataContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 70%;
+    margin: 50px;
 `
 
 const UsernameTitle = styled.h3`
-    margin: 0px;
+    margin-right: 20px;
+
+`
+const ButtonContainer = styled.div`
+    display: flex; 
+    flex-direction: row;
 `
 
-const ProfileButton = styled.button`
-    color: #bfa0e2;
-    background-color: white;
+const Button = styled.button`
+    color: white;
+    background-color: #bfa0e2;
     text-transform: uppercase;
     width: 8vw;
     height: 32px;
@@ -262,30 +277,33 @@ const ProfileButton = styled.button`
     padding: 0px 12px 2px;
     &:hover {
         cursor: pointer;
-        color: white;
-        background-color: #bfa0e2;
+        color: black;
     }
 `
-const ProfileImage = styled.img``
-
-const DataContainer = styled.div`
-    display: flex;
-    width: 70%;
-    margin: 20px;
-    padding: 20px 15px;
-    border-radius: 4px;
+const ProfileImage = styled.img`
+    width: 150px;
+    height: 150px;
+    border: solid black;
+    border-radius: 50%;
 `
 
-const TextContainer = styled(DataContainer)`
+const TextContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    margin: 20px;
+    border-radius: 4px;
     margin-top: 0px;
     flex-direction: column;
     align-items: center;
+    justify-items: center;
+    background-color: #333;
 `
 
-const ProfileModal = styled(Modal)`
-    background-color: white;
-    width: 60%;
-    height: 50%;
-    outline: 0;
-    
-`
+// const ProfileModal = styled(Modal)`
+//     background-color: white;
+//     width: 60%;
+//     height: 50%;
+//     outline: 0;
+
+// `
