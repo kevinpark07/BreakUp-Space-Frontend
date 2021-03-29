@@ -49,10 +49,9 @@ export const editUser = (userId, userObj) => {
         fetch(USERS_URL + userId, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json',
                 accepts: 'application/json'
             },
-            body: JSON.stringify(userObj)
+            body: userObj
         })
             .then(resp => resp.json())
             .then(updatedUser => dispatch({ type: "UPDATED_USER", payload: updatedUser }))
@@ -176,7 +175,7 @@ export const createUser = userObj => {
             },
             body: userObj
         })
-        .then(resp => resp.json())
-        .then(newUser => dispatch({ type: 'NEW_USER', payload: newUser}))
+            .then(resp => resp.json())
+            .then(newUser => dispatch({ type: 'NEW_USER', payload: newUser }))
     }
 }

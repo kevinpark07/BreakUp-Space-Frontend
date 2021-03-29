@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import FavoriteCard from '../Components/FavoriteCard'
+import FavoriteCard from '../Components/FavoriteCard';
 
 const FavoritesContainer = (props) => {
 

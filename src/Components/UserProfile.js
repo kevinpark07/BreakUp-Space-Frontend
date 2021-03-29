@@ -3,68 +3,36 @@ import { connect } from 'react-redux';
 import FavoritesContainer from '../Containers/FavoritesContainer';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import { editUser, logoutUser } from '../Redux/actions';
 import { Redirect } from 'react-router-dom';
 
-const status = [
-    {
-        value: 'single',
-        label: 'single',
-    },
-    {
-        value: 'taken',
-        label: 'taken',
-    },
-    {
-        value: 'complicated',
-        label: 'complicated',
-    },
-    {
-        value: 'serious',
-        label: 'serious',
-    },
-];
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: '25ch',
-    },
-}));
-
 const UserProfile = (props) => {
-    const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [relationship, setRelationship] = useState(props.user.relationship_status);
     const [name, setName] = useState(props.user.name);
     const [email, setEmail] = useState(props.user.email);
-    const [password, setPassword] = useState(props.user.password);
+    const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [username, setUsername] = useState(props.user.username);
+    const [profileImg, setProfileImg] = useState('');
+    const [currentPassword, setCurrentPassword] = useState('');
 
-    const handleChange = (e) => {
-        if (e.target.name === 'relationship') {
-            setRelationship(e.target.value);
-        } else if (e.target.name === 'name') {
+    const changeHandle = (e) => {
+        if (e.target.name === 'name') {
             setName(e.target.value)
         } else if (e.target.name === 'email') {
             setEmail(e.target.value)
         } else if (e.target.name === 'password') {
             setPassword(e.target.value)
-        } else if (e.target.name === 'password confirmation') {
+        } else if (e.target.name === 'password2') {
             setPasswordConfirmation(e.target.value)
         } else if (e.target.name === 'username') {
             setUsername(e.target.value)
         } else if (e.target.name === 'logout') {
             props.logoutUser();
+        } else if (e.target.name === 'profile_image') {
+            setProfileImg(e.target.files[0]);
+        } else if (e.target.name === 'currentPassword') {
+            setCurrentPassword(e.target.value);
         }
     }
 
@@ -77,22 +45,91 @@ const UserProfile = (props) => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         if (password !== passwordConfirmation) {
-            return alert('Passwords do not match');
-        } else {
-            let userData = {
-                name: e.target.name.value,
-                email: e.target.email.value,
-                password: e.target.password.value,
-                username: e.target.username.value,
-                relationship_status: e.target.relationship.value,
+            alert('Passwords do match. Please Re-enter Password');
+            setPassword('');
+            setPasswordConfirmation('');
+        } else if (username !== props.user.username) {
+            if (props.users.find(user => user.username === username)) {
+                alert('Username already exists')
+            } else {
+                if (password === '') {
+                    let formData = new FormData();
+                    formData.append('name', name);
+                    formData.append('username', username);
+                    formData.append('profile_image', profileImg);
+                    formData.append('email', email);
+                    formData.append('username', username);
+                    formData.append('password', props.user.password);
+                    props.editUser(props.user.id, formData);
+                    handleClose();
+                } else {
+                    let formData = new FormData();
+                    formData.append('name', name);
+                    formData.append('username', username);
+                    formData.append('profile_image', profileImg);
+                    formData.append('email', email);
+                    formData.append('username', username);
+                    formData.append('password', password);
+                    props.editUser(props.user.id, formData);
+                    handleClose();
+                }
             }
-            props.editUser(props.user.id, userData);
+        } else if (email !== props.user.email) {
+            if (props.users.find(user => user.email === email)) {
+                alert('Email already in use')
+            } else {
+                if (password === '') {
+                    let formData = new FormData();
+                    formData.append('name', name);
+                    formData.append('username', username);
+                    formData.append('profile_image', profileImg);
+                    formData.append('email', email);
+                    formData.append('username', username);
+                    formData.append('password', props.user.password);
+                    props.editUser(props.user.id, formData);
+                    handleClose();
+                } else {
+                    let formData = new FormData();
+                    formData.append('name', name);
+                    formData.append('username', username);
+                    formData.append('profile_image', profileImg);
+                    formData.append('email', email);
+                    formData.append('username', username);
+                    formData.append('password', password);
+                    props.editUser(props.user.id, formData);
+                    handleClose();
+                }
+            }
+        } else if (currentPassword !== props.user.password) {
+            alert('Password to confirm changes does not match. Please re-enter current Password');
+            setCurrentPassword('');
+        } else if (password === '') {
+            let formData = new FormData();
+            formData.append('name', name);
+            formData.append('username', username);
+            formData.append('profile_image', profileImg);
+            formData.append('email', email);
+            formData.append('username', username);
+            formData.append('password', props.user.password);
+            props.editUser(props.user.id, formData);
+            handleClose();
+        } else {
+            let formData = new FormData();
+            formData.append('name', name);
+            formData.append('username', username);
+            formData.append('profile_image', profileImg);
+            formData.append('email', email);
+            formData.append('username', username);
+            formData.append('password', password);
+            props.editUser(props.user.id, formData);
             handleClose();
         }
-
+        setPassword('');
+        setPasswordConfirmation('');
+        setCurrentPassword('');
     }
 
     return (
@@ -103,111 +140,39 @@ const UserProfile = (props) => {
                     <ProfileContainer>
                         <UsernameTitle>{props.user.username}</UsernameTitle>
                         <ButtonContainer>
-                            <Button style={{ marginRight: "20px" }} onClick={handleChange} name='logout'>Log Out</Button>
+                            <Button style={{ marginRight: "20px" }} onClick={changeHandle} name='logout'>Log Out</Button>
                             <Button onClick={handleOpen}>Edit Profile</Button>
                         </ButtonContainer>
                     </ProfileContainer>
                 </DataContainer>
-                {/* <ProfileModal
-                    open={open}
-                    onClose={handleClose}
-                >
-                    <div className={classes.root} noValidate autoComplete="off">
-                        <form onSubmit={handleSubmit}>
-                            <TextField
-                                id="outlined-full-width"
-                                label="Name"
-                                style={{ margin: 8 }}
-                                //placeholder={props.user.name}
-                                //value={relationship}
-                                name="name"
-                                onChange={handleChange}
-                                value={name}
-                                fullWidth
-                                margin="normal"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                variant="outlined"
-                            />
-
-                            <TextField
-                                id="outlined-full-width"
-                                label="Email"
-                                style={{ margin: 8 }}
-                                placeholder={props.user.email}
-                                fullWidth
-                                name="email"
-                                onChange={handleChange}
-                                value={email}
-                                margin="normal"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                variant="outlined"
-                            />
-                            <TextField
-                                label="Password"
-                                id="outlined-margin-normal"
-                                defaultValue='Enter New Password'
-                                className={classes.textField}
-                                name="password"
-                                onChange={handleChange}
-                                value={password}
-                                helperText="no caps please"
-                                margin="normal"
-                                variant="outlined"
-                            />
-                            <TextField
-                                label="Password Confirmation"
-                                name="password confirmation"
-                                onChange={handleChange}
-                                value={passwordConfirmation}
-                                id="outlined-margin-normal"
-                                defaultValue='Confirm Password'
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
-                            <TextField
-                                label="Username"
-                                name="username"
-                                onChange={handleChange}
-                                value={username}
-                                id="outlined-margin-normal"
-                                defaultValue={props.user.username}
-                                className={classes.textField}
-                                helperText="Keep it short and sweet 🍭"
-                                margin="normal"
-                                variant="outlined"
-                            />
-
-                            <TextField
-                                id="outlined-margin-normal"
-                                className={classes.textField}
-                                select
-                                label="Relationship Status"
-                                name='relationship'
-                                value={relationship}
-                                onChange={handleChange}
-                                variant="outlined"
-                                margin="normal"
-                            >
-                                {status.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            <button>Submit</button>
-                        </form>
-                    </div>
-                </ProfileModal> */}
-
                 <TextContainer>
                     <FavoritesContainer />
                 </TextContainer>
-            </Container>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <FormContainer>
+                        <Form onSubmit={handleSubmit}>
+                            <h1 style={{ textAlign: 'center', marginBottom: "15px", marginTop: "0%", color: "#78FF7D" }}>Edit Profile</h1>
+                            <Label>Full-Name</Label>
+                            <Input type='text' value={name} name='name' onChange={changeHandle} />
+                            <Label>Email</Label>
+                            <Input type='text' value={email} name='email' onChange={changeHandle} />
+                            <Label>Username</Label>
+                            <Input type='text' value={username} name='username' onChange={changeHandle} />
+                            <Label>New Password</Label>
+                            <Input type='password' value={password} name='password' onChange={changeHandle} />
+                            <Label>Confirm New Password</Label>
+                            <Input type='password' value={passwordConfirmation} name='password2' onChange={changeHandle} />
+                            <Label>Profile Image</Label>
+                            <input style={{ color: "#78FF7D", marginBottom: "25px" }} type='file' name='profile_image' onChange={changeHandle} />
+                            <Input type='password' value={currentPassword} name='currentPassword' placeholder='Enter old password to confirm changes' onChange={changeHandle} />
+                            <Button>Submit</Button>
+                        </Form>
+                    </FormContainer>
+                </Modal>
+            </Container >
             :
             <Redirect to='/login' />
     )
@@ -215,7 +180,8 @@ const UserProfile = (props) => {
 
 const msp = state => {
     return {
-        user: state.user
+        user: state.user,
+        users: state.users
     }
 }
 
@@ -300,10 +266,38 @@ const TextContainer = styled.div`
     background-color: #333;
 `
 
-// const ProfileModal = styled(Modal)`
-//     background-color: white;
-//     width: 60%;
-//     height: 50%;
-//     outline: 0;
+const Label = styled.label`
+    align-self: flex-start;
+    margin-bottom: 5px;
+    color: white;
+`
 
-// `
+const Input = styled.input`
+    width: 100%;
+    margin-bottom: 18px;
+    height: 25px;
+`
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 40px;
+    text-align: center;
+    background-color: #333;
+    border-radius: 15px;
+`
+
+const FormContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: auto;
+    background: #333;
+`
