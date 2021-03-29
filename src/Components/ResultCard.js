@@ -2,36 +2,33 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import {saveFavoriteMessage} from '../Redux/actions';
 
-function getModalStyle() {
-    const top = 50;
-    const left = 50;
+// function getModalStyle() {
+//     const top = 50;
+//     const left = 50;
   
-    return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-    };
-  }
+//     return {
+//       top: `${top}%`,
+//       left: `${left}%`,
+//       transform: `translate(-${top}%, -${left}%)`,
+//     };
+//   }
   
-  const useStyles = makeStyles((theme) => ({
-    paper: {
-      position: 'absolute',
-      width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-  }));
+  // const useStyles = makeStyles((theme) => ({
+  //   paper: {
+  //     position: 'absolute',
+  //     width: 400,
+  //     backgroundColor: theme.palette.background.paper,
+  //     border: '2px solid #000',
+  //     boxShadow: theme.shadows[5],
+  //     padding: theme.spacing(2, 4, 3),
+  //   },
+  // }));
 
 const ResultCard = (props) => {
-    const classes = useStyles();
-
-    const [modalStyle] = useState(getModalStyle);
+    
     const [open, setOpen] = useState(false);
     const [save, setSave] = useState(false);
     const [message, setMessage] = useState(props.result.message);
@@ -85,7 +82,7 @@ const ResultCard = (props) => {
         </Message>
         <ButtonContainer user={props.user}>
             {editMessage ?
-              <Button onClick={() => setEditMessage(!editMessage)}>Done Editting</Button>
+              <Button onClick={() => setEditMessage(!editMessage)}>Done Editing</Button>
               :
               <Button onClick={() => setEditMessage(!editMessage)}> Edit Text</Button>
             }
@@ -97,8 +94,6 @@ const ResultCard = (props) => {
         <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
         >
             <h5 style={{color: 'white'}}>{save ? 'Saved!' : 'Copied!'}</h5>
         </Modal>       
@@ -156,6 +151,8 @@ const Button = styled.button`
     background-color: #333;
     font-size: 14px;
     margin-top: 20px;
+    text-align: center;
+    padding: 14px 0px;
     &:hover {
         cursor: pointer;
     }
@@ -186,6 +183,7 @@ const Header = styled.h1`
 
 const Message = styled.div`
   border-radius: 20px;
+  font-size: 16px;
   padding: 8px 15px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -214,7 +212,7 @@ const Message = styled.div`
       right: -10px;
       width: 10px;
       height: 20px;
-      background: #eaeaea;
+      background: white;
       border-bottom-left-radius: 10px;
     }
     ${props => props.edit ?
@@ -222,12 +220,14 @@ const Message = styled.div`
 `
 
 const TextArea = styled.textarea`
-  border: none;
-  color: white;
-  background: #78ff7d;
   resize: none;
-  height: 150px;
+  outline: none;
+  border: none;
+  color: ivory;
+  background: #78ff7d;
   font-family: helvetica;
+  font-weight: bold;
   font-size: 16px;
   width: 100%;
+  height: 100px;
 `

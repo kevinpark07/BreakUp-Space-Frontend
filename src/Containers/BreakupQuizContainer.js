@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Quiz from '../Components/Quiz';
 import styled from 'styled-components';
+// import '98.css';
 
 const BreakupQuizContainer = (props) => {
     const [startQuiz, setStartQuiz] = useState(true);
@@ -22,12 +23,18 @@ const BreakupQuizContainer = (props) => {
 
     return (
         <QuizContainer>
+            <WindowBar>
+                <div className="title-bar-text">Quiz</div>
+                <div className="title-bar-controls">
+                    <span>X</span>
+                </div>
+            </WindowBar>
             <ScreenContainer>
                 {startQuiz ?
-                <>
-                    <TopicQuestionContainer>
-                        <TopicQuestion>Why is it time to say goodbye?</TopicQuestion>
-                    </TopicQuestionContainer>
+                    <>
+                        <TopicQuestionContainer>
+                            <TopicQuestion>Why is it time to say goodbye?</TopicQuestion>
+                        </TopicQuestionContainer>
 
                         <TopicList onClick={handleClick}>
                             <TopicLi>Not ready to date</TopicLi>
@@ -36,9 +43,9 @@ const BreakupQuizContainer = (props) => {
                             <LastTopicLi>No connection</LastTopicLi>
                         </TopicList>
 
-                </>
-                :
-                <Quiz resetQuiz={resetQuiz} topic={topic} questions={questions}/>}
+                    </>
+                    :
+                    <Quiz resetQuiz={resetQuiz} topic={topic} questions={questions} />}
             </ScreenContainer>
         </QuizContainer>
     )
@@ -57,16 +64,32 @@ const QuizContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 60vh;
+    height: 100%;
 `
 
 const ScreenContainer = styled.div`
-    width: 370px;
+    width: 500px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    margin-top: 20px;
-    
+    border: solid black .5px;
+    background-color: white;
+    border-top: none;
+    height: 100%;
+    margin-bottom: 50px;
+`
+
+const WindowBar = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 50px;
+    background: #EAEAEA;
+    width: 500px;
+    padding: 5px 10px;
+    background-color: #BFA0E2;
+    border: solid black .5px;
+    border-bottom: none;
 `
 
 const TopicQuestionContainer = styled.div`
@@ -74,6 +97,7 @@ const TopicQuestionContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 0px 20px;
 `
 
 const TopicQuestion = styled.h3`
@@ -83,7 +107,7 @@ const TopicQuestion = styled.h3`
     margin-bottom: 5px;
     display: inline-block;
     margin-right: 25%;
-    background-color: white;
+    background: #EAEAEA;
     position: relative;
     font-weight: 600;
     font-size: 16px;
@@ -95,7 +119,7 @@ const TopicQuestion = styled.h3`
         left: -7px;
         height: 20px;
         width: 20px;
-        background: white;
+        background: #EAEAEA;;
         border-bottom-right-radius: 15px;
     }
     &:after {
@@ -106,7 +130,7 @@ const TopicQuestion = styled.h3`
         left: -10px;
         width: 10px;
         height: 20px;
-        background: #EAEAEA;
+        background: white;
         border-bottom-right-radius: 10px;
       }
 `
@@ -116,6 +140,8 @@ const TopicList = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding: 0px 20px;
+    font-size: 16px;
 `
 
 const TopicLi = styled.div`
@@ -157,7 +183,8 @@ margin-bottom: 30px;
     right: -10px;
     width: 10px;
     height: 20px;
-    background: #EAEAEA;
+    background: white;
     border-bottom-left-radius: 10px;
   }
 `
+

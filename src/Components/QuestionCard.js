@@ -35,6 +35,7 @@ const QuestionContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 0px 20px;
 `
 
 const QuestionHeader = styled.h3`
@@ -44,7 +45,7 @@ const QuestionHeader = styled.h3`
     margin-bottom: 5px;
     display: inline-block;
     margin-right: 25%;
-    background-color: white;
+    background-color: #EAEAEA;
     position: relative;
     font-weight: 600;
     font-size: 16px;
@@ -56,7 +57,7 @@ const QuestionHeader = styled.h3`
         left: -7px;
         height: 20px;
         width: 20px;
-        background: white;
+        background: #EAEAEA;
         border-bottom-right-radius: 15px;
     }
     &:after {
@@ -67,7 +68,7 @@ const QuestionHeader = styled.h3`
         left: -10px;
         width: 10px;
         height: 20px;
-        background: #EAEAEA;
+        background: white;
         border-bottom-right-radius: 10px;
       }
 `
@@ -77,6 +78,8 @@ const AnswerList = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding: 0px 20px;
+    font-size: 16px;
 `
 
 const Answer = styled.div`
@@ -115,7 +118,7 @@ const Answer = styled.div`
             right: -10px;
             width: 10px;
             height: 20px;
-            background: #EAEAEA;
+            background: white;
             border-bottom-left-radius: 10px;
           }
         ` 
