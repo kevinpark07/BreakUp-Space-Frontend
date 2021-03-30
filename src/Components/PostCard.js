@@ -26,7 +26,7 @@ const PostCard = (props) => {
             props.updateUpVote(downVote, props.info.id);
         } else if (event.target.name === "delete") {
             props.deletePost(props.info.id);
-        } 
+        }
     }
 
     return (
@@ -39,18 +39,18 @@ const PostCard = (props) => {
                 </ButtonContainer>
                 <PostContainer>
                     <TopContainer>
-                        <span style={{color: '#333', fontSize: '14px', marginLeft: '5px', fontWeight: 'bold'}}>posted by {props.info.user.username} on {props.info.date}</span>
+                        <span style={{ color: '#333', fontSize: '14px', marginLeft: '5px', fontWeight: 'bold' }}>posted by {props.info.user.username} on {props.info.date}</span>
                         <PostButton name="delete" onClick={clickHandle}>X</PostButton>
                     </TopContainer>
-                    <span onClick={() => setRedirect(true)} style={{color: 'white', magrinBottom:'20px' , marginTop:'20px', fontWeight:'bold', fontSize: '20pt'}}>{props.info.title}</span>
+                    <span onClick={() => setRedirect(true)} style={{ color: 'white', magrinBottom: '20px', marginTop: '20px', fontWeight: 'bold', fontSize: '20pt' }}>{props.info.title}</span>
                     <Content onClick={() => setRedirect(true)}>{props.info.content}</Content>
                     {props.info.image ? <Image alt='text' src={props.info.image} /> : null}
                     <BottomContainer>
                         <ChatIcon onClick={() => setRedirect(true)} src={ChatSvg} alt='chat icon' />
                         <Span onClick={() => setRedirect(true)}>{props.info.comments.length} Comments</Span>
-                        <a style={{display: 'flex', textDecoration: 'none', color: '#333'}} href={`mailto:info@breakupspace.com?subject=Report Post ${props.info.id}&body=Hi, I would like to report this post due to`}>
-                        <FlagIcon src={FlagSvg} alt='flag icon' />
-                        <Span>Report</Span>
+                        <a style={{ display: 'flex', textDecoration: 'none', color: '#333' }} href={`mailto:info@breakupspace.com?subject=Report Post ${props.info.id}&body=Hi, I would like to report this post due to`}>
+                            <FlagIcon src={FlagSvg} alt='flag icon' />
+                            <Span>Report</Span>
                         </a>
                     </BottomContainer>
                 </PostContainer>
@@ -67,18 +67,53 @@ const mdp = dispatch => {
 
 export default connect(null, mdp)(PostCard);
 
+// const Container = styled.div`
+//     background-color: #bfa0e2;
+//     display: flex;
+//     flex-direction: row; 
+//     height: auto;
+//     width: 80%;
+//     justify-content: center;
+//     text-decoration: none;
+//     margin-bottom: 50px;
+//     padding-top: 2%;
+//     padding-bottom: 2%;
+//     box-shadow: 0px 0px 10px grey;
+// `
+
 const Container = styled.div`
-    background-color: #bfa0e2;
-    display: flex;
-    flex-direction: row; 
-    height: auto;
-    width: 80%;
-    justify-content: center;
-    text-decoration: none;
-    margin-bottom: 50px;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    box-shadow: 0px 0px 10px grey;
+height: auto;
+width: 70%;
+border-radius: 20px;
+font-size: 16px;
+text-decoration: none;
+margin-bottom: 50px;
+padding: 2%;
+margin-top: 5px;
+position: relative;
+background-color: #bfa0e2;
+&:before{
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    right: -8px;
+    height: 20px;
+    width: 20px;
+    background: #bfa0e2;
+    background-attachment: fixed;
+    border-bottom-left-radius: 15px;
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: -10px;
+    width: 10px;
+    height: 20px;
+    background: #eaeaea;
+    border-bottom-left-radius: 10px;
 `
 
 const UpVote = styled.img`
@@ -91,21 +126,19 @@ const UpVote = styled.img`
 
 const PostContainer = styled.div`
     float: right;
-    display: flex;
-    flex-direction: column;
+    display: inline-block;
     text-align: left;
-    width: 80%;
+    width: 85%;
     height: auto;
-    justify-content: space-between;
-    padding-left: 2%;
 `
 const ButtonContainer = styled.div`
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     width: 5%;
     top: 0%;
     padding-top: 1%;
+    margin-left: 25px;
 `
 const PostButton = styled.button`
     postion: static;
@@ -133,6 +166,7 @@ const TopContainer = styled.div`
 const BottomContainer = styled.div`
     display: flex;
     font-size: 14px;
+    margin-top: 5%;
 `
 
 const Content = styled.p`

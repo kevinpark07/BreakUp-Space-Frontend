@@ -34,7 +34,7 @@ const PostDisplay = props => {
             formData.append('user_id', props.user.id);
             formData.append('date', (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear());
             formData.append('image', image);
-    
+
             props.savePost(formData);
             handleClose();
         } else {
@@ -42,7 +42,7 @@ const PostDisplay = props => {
                 alert('You must include a title')
             } else if (!content || !image) {
                 alert('You must include content')
-            } 
+            }
         }
 
         setTitle("");
@@ -75,13 +75,13 @@ const PostDisplay = props => {
             >
                 <FormContainer>
                     <Form onSubmit={handleSubmit}>
-                        <h1 style={{color:"#78FF7D"}}>Create a Post</h1>
+                        <h1 style={{ color: "#78FF7D" }}>Create a Post</h1>
                         <Label>Title</Label>
                         <Input type='text' value={title} name='title' placeholder='Enter Title' onChange={changeHandle} />
                         <Label>Content</Label>
                         <TextArea name='content' value={content} placeholder='Text (optional)' onChange={changeHandle} />
                         <Label>Choose File</Label>
-                        <Input style={{color:"#78FF7D"}} type='file' name='image' onChange={changeHandle} />
+                        <Input style={{ color: "#78FF7D" }} type='file' name='image' onChange={changeHandle} />
                         <FormButton>Submit</FormButton>
                     </Form>
                 </FormContainer>
@@ -176,7 +176,6 @@ const PostContainer = styled.div`
     width: 100%;
     align-items: center;
     overflow: auto;
-    border: solid purple;
     padding-top: 5%;
 `
 
@@ -190,5 +189,4 @@ const Header = styled.div`
     width: 100%;
     align-items: center;
     padding-bottom: 2%;
-    border: solid orange;
 `

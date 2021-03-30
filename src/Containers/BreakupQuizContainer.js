@@ -155,7 +155,6 @@ margin-left: 25%;
 background: #bfa0e2;
 background-attachment: fixed;
 position: relative;
-
     &:hover {
         cursor: pointer;
     }
