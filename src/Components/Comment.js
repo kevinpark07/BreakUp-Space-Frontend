@@ -1,13 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {updateCommentVote, deleteComment} from '../Redux/actions.js';
+import { connect } from 'react-redux';
+import { updateCommentVote, deleteComment } from '../Redux/actions.js';
 import styled from 'styled-components';
 import UpArrow from '../asset/up_arrow.svg';
 import DownArrow from '../asset/down_arrow.svg';
 import FlagSvg from '../asset/flag.svg';
 
 const Comment = props => {
-    
+
     const clickHandle = event => {
         if (event.target.name === 'up') {
             let upVotes = {
@@ -25,22 +25,22 @@ const Comment = props => {
     }
 
 
-    return(
+    return (
         <Container>
             <ContentContainer>
-                <span style={{ color: 'black', fontSize: '12px', fontWeight: 'bold'}}>posted by {props.comment.user.username} on {props.comment.date}</span>
-                <p styled={{fonSize: '16px'}}>{props.comment.content}</p>
-            <BottomContainer>
-                <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={clickHandle} />
-                <span style={{margin: '0px 4px'}}>{props.comment.up_votes}</span>
-                <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={clickHandle} />
-                <a style={{display: 'flex', textDecoration: 'none', color: 'black'}} href={`mailto:info@breakupspace.com?subject=Report Comment ${props.comment.id}&body=Hi, I would like to report this comment due to`}>
-                    <FlagIcon src={FlagSvg} alt='flag icon' />
-                    <FlagSpan>Report</FlagSpan>
-                </a>
-            </BottomContainer>
+                <span style={{ color: 'black', fontSize: '12px', fontWeight: 'bold' }}>posted by {props.comment.user.username} on {props.comment.date}</span>
+                <p styled={{ fonSize: '16px' }}>{props.comment.content}</p>
+                <BottomContainer>
+                    <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={clickHandle} />
+                    <span style={{ margin: '0px 4px' }}>{props.comment.up_votes}</span>
+                    <UpVote alt='Down Vote' src={DownArrow} name="down" onClick={clickHandle} />
+                    <a style={{ display: 'flex', textDecoration: 'none', color: 'black' }} href={`mailto:info@breakupspace.com?subject=Report Comment ${props.comment.id}&body=Hi, I would like to report this comment due to`}>
+                        <FlagIcon src={FlagSvg} alt='flag icon' />
+                        <FlagSpan>Report</FlagSpan>
+                    </a>
+                </BottomContainer>
             </ContentContainer>
-            <button name="delete" onClick={clickHandle}>X</button>
+            <span name="delete" onClick={clickHandle}>X</span>
         </Container>
     )
 }

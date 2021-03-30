@@ -39,10 +39,10 @@ const PostCard = (props) => {
                 </ButtonContainer>
                 <PostContainer>
                     <TopContainer>
-                        <span style={{ color: '#333', fontSize: '14px', marginLeft: '5px', fontWeight: 'bold' }}>posted by {props.info.user.username} on {props.info.date}</span>
+                        <span style={{ color: '#333', fontSize: '14px', fontWeight: 'bold' }}>posted by {props.info.user.username} on {props.info.date}</span>
                         <PostButton name="delete" onClick={clickHandle}>X</PostButton>
                     </TopContainer>
-                    <span onClick={() => setRedirect(true)} style={{ color: 'white', magrinBottom: '20px', marginTop: '20px', fontWeight: 'bold', fontSize: '20pt' }}>{props.info.title}</span>
+                    <Title onClick={() => setRedirect(true)}>{props.info.title}</Title>
                     <Content onClick={() => setRedirect(true)}>{props.info.content}</Content>
                     {props.info.image ? <Image alt='text' src={props.info.image} /> : null}
                     <BottomContainer>
@@ -160,7 +160,9 @@ const Image = styled.img`
 
 const TopContainer = styled.div`
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 2%;
 `
 
 const BottomContainer = styled.div`
@@ -172,7 +174,6 @@ const BottomContainer = styled.div`
 const Content = styled.p`
     margin-bottom: 30px;
     margin-top: 10px;
-    margin-left: 5px;
     font-size: 14pt;
     color: white;
     &:hover {
@@ -203,6 +204,17 @@ const ChatIcon = styled.img`
 
 const FlagIcon = styled.img`
     margin-left: 5px;
+    &:hover {
+        cursor: pointer;
+    };
+`
+
+const Title = styled.span`
+    color: white;
+    margin-bottom: 20px; 
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20pt;
     &:hover {
         cursor: pointer;
     };

@@ -14,7 +14,7 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
 
     const renderComments = () => {
         let postComments = comments.filter(comment => comment.post.id === post.id);
-        let sortedComments = postComments.sort((a,b) => b.up_votes - a.up_votes);
+        let sortedComments = postComments.sort((a, b) => b.up_votes - a.up_votes);
         return sortedComments.map(comment => <Comment key={comment.id} comment={comment} />)
     }
 
@@ -25,7 +25,7 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
             content: comment,
             post_id: post.id,
             user_id: user.id,
-            date: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+            date: (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear(),
             up_votes: 0,
         }
         saveComment(savedPost);
@@ -45,11 +45,11 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
                 up_votes: post.up_votes - 1
             }
             updateVote(downVote, post.id);
-        } 
+        }
     }
 
     return (
-        <div style={{display: 'flex', justifyContent: 'center'}}>    
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Container>
                 <VoteContainer>
                     <UpVote alt='Up Vote' src={UpArrow} name="up" onClick={changeHandle} />
@@ -63,21 +63,21 @@ function PostPage({ post, user, saveComment, comments, updateVote }) {
                             <Content>{post.content}</Content>
                             {post.image ? <Image alt='text' src={post.image} /> : null}
                             <BottomContainer>
-                                <ChatIcon  src={ChatSvg} alt='chat icon' />
+                                <ChatIcon src={ChatSvg} alt='chat icon' />
                                 <Span >{post.comments.length} Comments</Span>
                                 <FlagIcon src={FlagSvg} alt='flag icon' />
                                 <FlagSpan>Report</FlagSpan>
                             </BottomContainer>
-                        </ContentContainer>  
+                        </ContentContainer>
                     </PostContainer>
-                    {user ? 
-                    <Form onSubmit={submitHandle}>
-                        <CommentInput placeholder='Enter Comment here' name='comment' onChange={changeHandle} value={comment}/>
-                        <br></br>
-                        <button style={{marginTop: "2%"}}>Submit</button>
-                    </Form>
-                    :
-                    <h4>Must be logged in to Comment. <br></br><a href="/login">Log-in</a>?</h4> }
+                    {user ?
+                        <Form onSubmit={submitHandle}>
+                            <CommentInput placeholder='Enter Comment here' name='comment' onChange={changeHandle} value={comment} />
+                            <br></br>
+                            <Button style={{ marginTop: "2%" }}>Submit</Button>
+                        </Form>
+                        :
+                        <h4>Must be logged in to Comment. <br></br><a href="/login">Log-in</a>?</h4>}
                     {renderComments()}
                 </InnerContainer>
             </Container>
@@ -135,7 +135,7 @@ const InnerContainer = styled.div`
     background-color: #EAEAEA
 `
 
-const PostContainer= styled.div`
+const PostContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 80%;
@@ -217,4 +217,20 @@ const FlagSpan = styled(Span)`
     &:hover {
         cursor: pointer;
     };
+`
+
+const Button = styled.button`
+    white-space: nowrap;
+    width: 110px;
+    border-radius: 12px;
+    border: #bfa0e2;
+    font-weight: 600;
+    color: white;
+    background-color: #bfa0e2;
+    font-size: 14px;
+    text-align: center;
+    padding: 12px 0px;
+    &:hover {
+        cursor: pointer;
+    }
 `

@@ -64,7 +64,7 @@ const PostDisplay = props => {
         <Container>
             <Header>
                 <h1>Community Board</h1>
-                {props.user ? <Button onClick={handleOpen}>Write Post</Button> : <h4>Must be logged in to Post or Comment. <br></br><a href="/login">Log-in</a>?</h4>}
+                {props.user ? <Button onClick={handleOpen}>Write Post</Button> : <h4 style={{ textAlign: 'center' }}>Must be logged in to Post or Comment. <br></br><a href="/login">Log-in</a>?</h4>}
             </Header>
             <PostContainer>
                 {renderPosts()}
@@ -180,7 +180,19 @@ const PostContainer = styled.div`
 `
 
 const Button = styled.button`
-    width: 150px;
+    white-space: nowrap;
+    width: 110px;
+    border-radius: 12px;
+    border: #bfa0e2;
+    font-weight: 600;
+    color: white;
+    background-color: #bfa0e2;
+    font-size: 14px;
+    text-align: center;
+    padding: 12px 0px;
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const Header = styled.div`
