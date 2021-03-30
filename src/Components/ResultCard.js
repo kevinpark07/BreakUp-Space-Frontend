@@ -1,111 +1,113 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Modal from '@material-ui/core/Modal';
-import {saveFavoriteMessage} from '../Redux/actions';
+import { saveFavoriteMessage } from '../Redux/actions';
 
 // function getModalStyle() {
 //     const top = 50;
 //     const left = 50;
-  
+
 //     return {
 //       top: `${top}%`,
 //       left: `${left}%`,
 //       transform: `translate(-${top}%, -${left}%)`,
 //     };
 //   }
-  
-  // const useStyles = makeStyles((theme) => ({
-  //   paper: {
-  //     position: 'absolute',
-  //     width: 400,
-  //     backgroundColor: theme.palette.background.paper,
-  //     border: '2px solid #000',
-  //     boxShadow: theme.shadows[5],
-  //     padding: theme.spacing(2, 4, 3),
-  //   },
-  // }));
+
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     position: 'absolute',
+//     width: 400,
+//     backgroundColor: theme.palette.background.paper,
+//     border: '2px solid #000',
+//     boxShadow: theme.shadows[5],
+//     padding: theme.spacing(2, 4, 3),
+//   },
+// }));
 
 const ResultCard = (props) => {
-    
-    const [open, setOpen] = useState(false);
-    const [save, setSave] = useState(false);
-    const [message, setMessage] = useState(props.result.message);
-    const [editMessage, setEditMessage] = useState(false)
 
-    const handleOpen = () => {
-        setOpen(true);
-      };
-    
-      const handleClose = () => {
-        setOpen(false);
-        setSave(false);
-      };
+  const [open, setOpen] = useState(false);
+  const [save, setSave] = useState(false);
+  const [message, setMessage] = useState(props.result.message);
+  const [editMessage, setEditMessage] = useState(false)
 
-      const handleSave = () => {
-        let messageObj = {
-          user_id: props.user.id,
-          breakup_message_id: props.result.id,
-        };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-        props.saveFavoriteMessage(messageObj);
-        setSave(true);
-        setOpen(true);
-      }
+  const handleClose = () => {
+    setOpen(false);
+    setSave(false);
+  };
+
+  const handleSave = () => {
+    let messageObj = {
+      user_id: props.user.id,
+      breakup_message_id: props.result.id,
+    };
+
+    props.saveFavoriteMessage(messageObj);
+    setSave(true);
+    setOpen(true);
+  }
 
 
-      const handleChange = (e) => {
-        setMessage(e.target.value);
-      }
+  const handleChange = (e) => {
+    setMessage(e.target.value);
+  }
 
-      const renderResuleHeader = () => {
-          if (!props.result.subject) {
-            return <Header>The issue is they are more a friend and it seems you want to send a {props.result.tone} text...</Header>
-          } else if (!props.result.tone) {
-            return <Header>The issue is {props.result.subject}...</Header>
-          } else if(props.result.subject === 'they made me feel uncomfortable') {
-            return <Header>The issue is they made you feel uncomfortable due to {props.result.tone}...</Header>
-          }else {
-              return <Header>The issue is {props.result.subject} and it seems you want a {props.result.tone} vibe...</Header>
-          }
-      }
-    
-    return (
-      <>
-        <HeaderContainer>
-          {renderResuleHeader()}
-          <PTag onClick={props.resetQuiz}>Try Again?</PTag>
-        </HeaderContainer>
-        <Message edit={editMessage}>
-          {editMessage ? <TextArea onChange={handleChange} value={message}/> : <p style={{padding: '2px', margin: '0px'}}>{message}</p>}
-        </Message>
-        <ButtonContainer user={props.user}>
-            {editMessage ?
-              <Button onClick={() => setEditMessage(!editMessage)}>Done Editing</Button>
-              :
-              <Button onClick={() => setEditMessage(!editMessage)}> Edit Text</Button>
-            }
-            {props.user ? <Button onClick={handleSave}>Save Text</Button> : null}  
-            <CopyButton text={message} onCopy={handleOpen}>
-                <span>Copy Text!</span>
-            </CopyButton>
-        </ButtonContainer>
-        <Modal
-            open={open}
-            onClose={handleClose}
-        >
-            <h5 style={{color: 'white'}}>{save ? 'Saved!' : 'Copied!'}</h5>
-        </Modal>       
-        </>
-    )
+  const renderResuleHeader = () => {
+    if (!props.result.subject) {
+      return <Header>The issue is they are more a friend and it seems you want to send a {props.result.tone} text...</Header>
+    } else if (!props.result.tone) {
+      return <Header>The issue is {props.result.subject}...</Header>
+    } else if (props.result.subject === 'they made me feel uncomfortable') {
+      return <Header>The issue is they made you feel uncomfortable due to {props.result.tone}...</Header>
+    } else {
+      return <Header>The issue is {props.result.subject} and it seems you want a {props.result.tone} vibe...</Header>
+    }
+  }
+
+  return (
+    <>
+      <HeaderContainer>
+        {renderResuleHeader()}
+        <PTag onClick={props.resetQuiz}>Try Again?</PTag>
+      </HeaderContainer>
+      <Message edit={editMessage}>
+        {editMessage ? <TextArea onChange={handleChange} value={message} /> : <p style={{ padding: '2px', margin: '0px' }}>{message}</p>}
+      </Message>
+      <ButtonContainer user={props.user}>
+        {editMessage ?
+          <Button onClick={() => setEditMessage(!editMessage)}>Done Editing</Button>
+          :
+          <Button onClick={() => setEditMessage(!editMessage)}> Edit Text</Button>
+        }
+        {props.user ? <Button onClick={handleSave}>Save Text</Button> : null}
+        <CopyButton text={message} onCopy={handleOpen}>
+          <span>Copy Text!</span>
+        </CopyButton>
+      </ButtonContainer>
+      <Modal
+        open={open}
+        onClose={handleClose}
+      >
+        <ModalContainer>
+          <h5 style={{ color: 'white', fontSize: '14pt' }}>{save ? 'Saved!' : 'Copied!'}</h5>
+        </ModalContainer>
+      </Modal>
+    </>
+  )
 }
 
 const msp = state => {
-    return {
-        messages: state.messages,
-        user: state.user
-    }
+  return {
+    messages: state.messages,
+    user: state.user
+  }
 }
 
 const mdp = dispatch => {
@@ -138,7 +140,7 @@ const PTag = styled.p`
 
 const ButtonContainer = styled.div`
     display: flex;
-    justify-content: ${props => props.user ? `space-between`: `space-around`}; 
+    justify-content: ${props => props.user ? `space-between` : `space-around`}; 
   `
 
 const Button = styled.button`
@@ -200,7 +202,7 @@ const Message = styled.div`
       right: -8px;
       height: 20px;
       width: 20px;
-      background: ${props => props.edit ? `#78ff7d`: `#bfa0e2`};
+      background: ${props => props.edit ? `#78ff7d` : `#bfa0e2`};
       background-attachment: fixed;
       border-bottom-left-radius: 15px;
     }
@@ -216,7 +218,7 @@ const Message = styled.div`
       border-bottom-left-radius: 10px;
     }
     ${props => props.edit ?
-      `background-color: #78ff7d`: `background-color: #bfa0e2`}
+    `background-color: #78ff7d` : `background-color: #bfa0e2`}
 `
 
 const TextArea = styled.textarea`
@@ -230,4 +232,18 @@ const TextArea = styled.textarea`
   font-size: 16px;
   width: 100%;
   height: 100px;
+`
+
+const ModalContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
+    background: #333;
 `
