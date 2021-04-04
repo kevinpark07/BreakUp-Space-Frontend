@@ -89,7 +89,7 @@ const WindowBar = styled.div`
     padding: 5px 10px;
     background-color: #BFA0E2;
     border: solid black .5px;
-    border-bottom: none;
+    border-bottom: 1px solid black;
 `
 
 const TopicQuestionContainer = styled.div`
