@@ -200,5 +200,6 @@ const Header = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: center;
-    padding-bottom: 2%;
+    padding-bottom: 1%;
+    border-bottom: solid gainsboro;
 `
