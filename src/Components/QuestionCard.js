@@ -45,7 +45,7 @@ const QuestionHeader = styled.h3`
     margin-bottom: 5px;
     display: inline-block;
     margin-right: 25%;
-    background-color: #EAEAEA;
+    background-color: white;
     position: relative;
     font-weight: 600;
     font-size: 16px;
@@ -57,7 +57,7 @@ const QuestionHeader = styled.h3`
         left: -7px;
         height: 20px;
         width: 20px;
-        background: #EAEAEA;
+        background: white;
         border-bottom-right-radius: 15px;
     }
     &:after {
@@ -68,7 +68,7 @@ const QuestionHeader = styled.h3`
         left: -10px;
         width: 10px;
         height: 20px;
-        background: white;
+        background: #EAEAEA;
         border-bottom-right-radius: 10px;
       }
 `
@@ -118,7 +118,7 @@ const Answer = styled.div`
             right: -10px;
             width: 10px;
             height: 20px;
-            background: white;
+            background: #EAEAEA;
             border-bottom-left-radius: 10px;
           }
         ` 
