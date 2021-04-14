@@ -214,7 +214,7 @@ const Message = styled.div`
       right: -10px;
       width: 10px;
       height: 20px;
-      background: white;
+      background: #EAEAEA;
       border-bottom-left-radius: 10px;
     }
     ${props => props.edit ?
