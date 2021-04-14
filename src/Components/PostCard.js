@@ -67,23 +67,9 @@ const mdp = dispatch => {
 
 export default connect(null, mdp)(PostCard);
 
-// const Container = styled.div`
-//     background-color: #bfa0e2;
-//     display: flex;
-//     flex-direction: row; 
-//     height: auto;
-//     width: 80%;
-//     justify-content: center;
-//     text-decoration: none;
-//     margin-bottom: 50px;
-//     padding-top: 2%;
-//     padding-bottom: 2%;
-//     box-shadow: 0px 0px 10px grey;
-// `
-
 const Container = styled.div`
 height: auto;
-width: 70%;
+width: 55%;
 border-radius: 20px;
 font-size: 16px;
 text-decoration: none;
