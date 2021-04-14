@@ -73,7 +73,7 @@ const ScreenContainer = styled.div`
     display: flex;
     flex-direction: column;
     border: solid black .5px;
-    background-color: white;
+    background-color: #eaeaea;
     border-top: none;
     height: 100%;
     margin-bottom: 50px;
