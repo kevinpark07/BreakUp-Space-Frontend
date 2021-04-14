@@ -12,7 +12,7 @@ function NavBar(props) {
     <Container>
        <LinkContainer>
           <Tab to="/home"><Logo src='https://uploads-ssl.webflow.com/5e6437bd68556a7f88367dcc/5ec461df6e203d0a9b69f125_logo_new_1.png' alt='logo'/></Tab>
-          <Tab to='/quiz' style={{color:"#78FF7D"}}>Quiz</Tab>
+          <QuizTab to='/quiz'>Quiz</QuizTab>
           <Tab to='/posts'>Community</Tab>
         </LinkContainer>
      
@@ -54,6 +54,9 @@ const Logo = styled.img`
 const Icon = styled(Person)`
   color: white;
   margin-right: 50px;
+  &:hover{
+    color: #BFA0E2;
+  }
 `
 
 const Tab = styled(Link)`
@@ -64,6 +67,12 @@ const Tab = styled(Link)`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 3px;
+  &:hover{
+    color: #BFA0E2;
+  }
+`
+const QuizTab = styled(Tab)`
+  color: #78FF7D;
 `
 
 const Container = styled.div`
