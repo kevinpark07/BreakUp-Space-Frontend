@@ -16,7 +16,7 @@ const HomePage = () => {
             <Container>
                 <TopContainer>
                     <GreetingContainer>
-                        <Header>It's time to breakup with ghosting.</Header>
+                        <Header>It's time to breakup <br></br>with ghosting.</Header>
                         <Button onClick={clickHandler}>
                         Get Space
                         </Button>
