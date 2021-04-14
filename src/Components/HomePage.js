@@ -93,6 +93,8 @@ const Button = styled.button`
     text-align: center;
     &:hover {
         cursor: pointer;
+        color: black;
+        filter: brightness(90%);
     }
 `
 const AboutContainer = styled.div`
@@ -135,11 +137,3 @@ const TextContainer = styled.div`
     z-index: 1;
     font-size: 14px;
 `
-
-    // flex-direction: column;
-    // flex-wrap: wrap;
-    // align-items: center;
-    // align-self: center;
-    // z-index: 1;
-    // position: absolute;
-    // font-size: 16px;
